@@ -38,9 +38,40 @@ let highlightNodes = new Set();
 let highlightLinks = new Set();
 let hoverNode = null;
 let selectedNode = null;
+let fuse;
+
+const filters = {
+  folders: true,
+  js: true,
+  css: true,
+  media: true,
+  others: true,
+  orphansOnly: false
+};
+
+function isNodeVisible(node) {
+  if (filters.orphansOnly && (!node.isOrphan || node.type === 'directory')) return false;
+  if (node.type === 'directory') return filters.folders;
+  
+  const ext = node.extension;
+  if (['js', 'jsx', 'ts', 'tsx'].includes(ext)) return filters.js;
+  if (['css', 'scss', 'less'].includes(ext)) return filters.css;
+  if (['png', 'jpg', 'jpeg', 'svg', 'gif', 'ico', 'webp'].includes(ext)) return filters.media;
+  return filters.others;
+}
+
+function isLinkVisible(link) {
+  const sourceNode = typeof link.source === 'object' ? link.source : null;
+  const targetNode = typeof link.target === 'object' ? link.target : null;
+  if (sourceNode && !isNodeVisible(sourceNode)) return false;
+  if (targetNode && !isNodeVisible(targetNode)) return false;
+  return true;
+}
 
 // Initialize Graph
 const Graph = ForceGraph3D()(document.getElementById('3d-graph'))
+  .nodeVisibility(node => isNodeVisible(node))
+  .linkVisibility(link => isLinkVisible(link))
   .nodeLabel(node => {
     return `<div class="scene-tooltip">
       <strong>${node.name}</strong><br>
@@ -193,6 +224,19 @@ fetch('graph-data.json')
   .then(res => res.json())
   .then(data => {
     graphData = data;
+    
+    // Calculate Orphans (Files that have no imports in or out)
+    let orphanCount = 0;
+    graphData.nodes.forEach(node => {
+      if (node.type === 'file') {
+        const hasDependencies = graphData.links.some(l => 
+          l.type !== 'hierarchy' && (l.source === node.id || l.target === node.id)
+        );
+        node.isOrphan = !hasDependencies;
+        if (node.isOrphan) orphanCount++;
+      }
+    });
+
     Graph.graphData(data);
     
     // Update Stats
@@ -202,14 +246,75 @@ fetch('graph-data.json')
     
     const totalLoc = data.nodes.reduce((acc, n) => acc + (n.loc || 0), 0);
     document.getElementById('stat-loc').innerText = totalLoc.toLocaleString();
+    
+    if (orphanCount > 0) {
+      document.getElementById('stat-orphans-container').style.display = 'flex';
+      document.getElementById('stat-orphans').innerText = orphanCount;
+    }
+
+    // Initialize Fuse.js for fuzzy search
+    fuse = new Fuse(data.nodes, {
+      keys: ['name', 'id', 'extension'],
+      threshold: 0.3
+    });
   });
+
+// Search UI Logic
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+
+searchInput.addEventListener('input', (e) => {
+  const query = e.target.value;
+  searchResults.innerHTML = '';
+  
+  if (query.trim() === '') return;
+  
+  const results = fuse.search(query).slice(0, 8); // top 8 results
+  
+  results.forEach(result => {
+    const node = result.item;
+    const div = document.createElement('div');
+    div.className = 'search-result-item';
+    div.innerHTML = `
+      <div>${node.name}</div>
+      <div class="path">${node.id}</div>
+    `;
+    div.onclick = () => {
+      focusNodeById(node.id);
+      searchResults.innerHTML = '';
+      searchInput.value = '';
+    };
+    searchResults.appendChild(div);
+  });
+});
+
+// Shortcut for Search
+document.addEventListener('keydown', (e) => {
+  if (e.key === '/' && document.activeElement !== searchInput) {
+    e.preventDefault();
+    searchInput.focus();
+  }
+});
+
+// Filters Logic
+['folders', 'js', 'css', 'media', 'others', 'orphans'].forEach(key => {
+  const el = document.getElementById('filter-' + key);
+  if (el) {
+    el.addEventListener('change', (e) => {
+      if (key === 'orphans') filters.orphansOnly = e.target.checked;
+      else filters[key] = e.target.checked;
+      Graph
+        .nodeVisibility(Graph.nodeVisibility())
+        .linkVisibility(Graph.linkVisibility());
+    });
+  }
+});
 
 // Physics GUI
 const gui = new dat.GUI();
 const physicsConfig = {
   nodeRepulsion: 120,
-  linkDistance: 40,
-  gravity: 0.002
+  linkDistance: 40
 };
 
 const fgConfig = gui.addFolder('Physics');

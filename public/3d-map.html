@@ -10,6 +10,7 @@
   <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
   <script src="https://unpkg.com/3d-force-graph@1.73.3/dist/3d-force-graph.min.js"></script>
   <script src="https://unpkg.com/dat.gui"></script>
+  <script src="https://unpkg.com/fuse.js@7.0.0/dist/fuse.min.js"></script>
 </head>
 <body>
   
@@ -27,6 +28,28 @@
       <span class="stat-value" id="stat-loc">0</span>
       <span class="stat-label">Total LOC</span>
     </div>
+    <div class="stat-item" id="stat-orphans-container" style="display: none; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 15px;">
+      <span class="stat-value" id="stat-orphans" style="color: #ff7b72;">0</span>
+      <span class="stat-label">Orphans</span>
+    </div>
+  </div>
+
+  <!-- Search UI -->
+  <div id="search-panel" class="panel">
+    <input type="text" id="search-input" placeholder="Search files (press /)" autocomplete="off">
+    <div id="search-results"></div>
+  </div>
+
+  <!-- Filters UI -->
+  <div id="filters-panel" class="panel">
+    <h3>Filters</h3>
+    <label><input type="checkbox" id="filter-folders" checked> Folders</label>
+    <label><input type="checkbox" id="filter-js" checked> JavaScript/TypeScript</label>
+    <label><input type="checkbox" id="filter-css" checked> CSS/SCSS</label>
+    <label><input type="checkbox" id="filter-media" checked> Images/Media</label>
+    <label><input type="checkbox" id="filter-others" checked> Others (JSON, MD)</label>
+    <hr>
+    <label><input type="checkbox" id="filter-orphans"> Show Orphans Only</label>
   </div>
 
   <!-- Legend -->
