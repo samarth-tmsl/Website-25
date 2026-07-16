@@ -41,5 +41,7 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
     "vite": "^4.0.0"
-  }
+  },
+  ,
+  "packageManager": "pnpm@11.3.0"
 }
