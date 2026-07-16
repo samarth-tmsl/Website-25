@@ -10,6 +10,16 @@ const IGNORE_DIRS = ['node_modules', '.git', '.github', 'dist', 'build', '.next'
 // Keep public mostly, maybe ignore output JSON if we run recursively
 const IGNORE_FILES = ['generate-3d-map.mjs', '3d-map.html', 'graph-data.json', 'map-app.js', 'map-styles.css', 'package-lock.json', 'pnpm-lock.yaml', 'yarn.lock'];
 
+let archConfig = { folders: {}, files: {} };
+try {
+  const configPath = path.join(rootDir, 'architecture-config.json');
+  if (fs.existsSync(configPath)) {
+    archConfig = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+  }
+} catch(e) {
+  console.warn("Could not read architecture-config.json");
+}
+
 const nodes = [];
 const links = [];
 
@@ -33,6 +43,8 @@ function traverseDirectory(currentPath, parentNodeId = null, depth = 0) {
     if (!isDirectory && IGNORE_FILES.includes(name)) return null;
   }
 
+  const meta = isDirectory ? (archConfig.folders[id] || {}) : (archConfig.files[id] || {});
+
   const node = {
     id,
     name,
@@ -46,7 +58,13 @@ function traverseDirectory(currentPath, parentNodeId = null, depth = 0) {
     loc: 0,
     childrenCount: 0,
     extension: isDirectory ? null : getExtension(name),
-    val: isDirectory ? 5 : 2 // default base value
+    val: isDirectory ? 5 : 2, // default base value
+    // Metadata injection
+    difficulty: meta.difficulty || null,
+    description: meta.description || null,
+    maintainer: meta.maintainer || null,
+    isImportant: meta.isImportant || false,
+    issues: meta.issues || []
   };
 
   nodes.push(node);

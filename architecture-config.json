@@ -1,0 +1,44 @@
+{
+  "folders": {
+    "src": {
+      "description": "The main source code directory containing all application logic.",
+      "isImportant": true
+    },
+    "src/components": {
+      "description": "Reusable React UI components used across multiple pages.",
+      "isImportant": true,
+      "maintainer": "Frontend Team"
+    },
+    "public": {
+      "description": "Static assets that are served directly without processing.",
+      "isImportant": true
+    },
+    "scripts": {
+      "description": "Utility scripts for building, mapping, and devops tasks."
+    }
+  },
+  "files": {
+    "src/App.jsx": {
+      "difficulty": "Intermediate",
+      "maintainer": "Core Team",
+      "issues": [
+        "Add error boundary wrapper"
+      ]
+    },
+    "src/main.jsx": {
+      "difficulty": "Advanced",
+      "description": "The main entry point of the React application."
+    },
+    "package.json": {
+      "difficulty": "Beginner",
+      "description": "Project dependencies and NPM scripts."
+    },
+    "src/App.scss": {
+      "difficulty": "Beginner",
+      "issues": [
+        "Refactor global variables to CSS variables",
+        "Fix responsive padding on mobile"
+      ]
+    }
+  }
+}

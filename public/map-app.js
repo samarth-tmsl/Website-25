@@ -85,12 +85,17 @@ const Graph = ForceGraph3D()(document.getElementById('3d-graph'))
     return 'rgba(255,255,255,0.1)';
   })
   .nodeThreeObject(node => {
-    const size = node.val;
+    let size = node.val;
+    if (node.isImportant) size *= 1.5; // Make important nodes 50% larger
+    
     const color = getNodeColor(node);
+    
     const material = new THREE.MeshLambertMaterial({ 
       color, 
       transparent: true,
-      opacity: (highlightNodes.size === 0 || highlightNodes.has(node)) ? 0.9 : 0.1 
+      opacity: (highlightNodes.size === 0 || highlightNodes.has(node)) ? 0.9 : 0.1,
+      emissive: node.isImportant ? color : 0x000000,
+      emissiveIntensity: node.isImportant ? 0.4 : 0
     });
     
     let geometry;
@@ -145,6 +150,20 @@ function updateHighlight() {
 
   if (selectedNode) {
     highlightNodes.add(selectedNode);
+    
+    // Highlight Path to Root
+    if (selectedNode.id !== '/') {
+      highlightNodes.add(graphData.nodes.find(n => n.id === '/'));
+      const parts = selectedNode.id.split('/');
+      let currentPath = '';
+      parts.forEach(part => {
+        currentPath = currentPath ? currentPath + '/' + part : part;
+        const parentNode = graphData.nodes.find(n => n.id === currentPath);
+        if (parentNode) highlightNodes.add(parentNode);
+      });
+    }
+
+    // Highlight Direct Dependencies
     graphData.links.forEach(link => {
       if (link.source.id === selectedNode.id || link.target.id === selectedNode.id) {
         highlightLinks.add(link);
@@ -175,6 +194,52 @@ function updateSidebar(node) {
   
   const modifiedDate = new Date(node.modified);
   document.getElementById('sb-modified').innerText = isNaN(modifiedDate) ? 'N/A' : modifiedDate.toLocaleDateString();
+  // Add Metadata if exists
+  let metadataHtml = '';
+  if (node.difficulty) {
+    const diffColor = node.difficulty === 'Beginner' ? '#2ea043' : (node.difficulty === 'Intermediate' ? '#e3b341' : '#f85149');
+    metadataHtml += `
+      <div style="margin-top: 15px; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 6px; border-left: 4px solid ${diffColor}">
+        <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">Difficulty</div>
+        <div style="font-weight: bold; color: ${diffColor};">${node.difficulty}</div>
+      </div>
+    `;
+  }
+  if (node.description) {
+    metadataHtml += `
+      <div style="margin-top: 10px; font-size: 13px; line-height: 1.4;">
+        ${node.description}
+      </div>
+    `;
+  }
+  if (node.maintainer) {
+    metadataHtml += `
+      <div style="margin-top: 10px; font-size: 12px;">
+        <span style="color: var(--text-secondary);">Maintainer:</span> ${node.maintainer}
+      </div>
+    `;
+  }
+  if (node.issues && node.issues.length > 0) {
+    metadataHtml += `
+      <div class="dep-list" style="margin-top: 15px;">
+        <h3 style="color: #2ea043">Good First Issues</h3>
+        <ul>
+          ${node.issues.map(issue => `<li style="pointer-events:none;">✔ ${issue}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  // Find or create metadata container
+  let metaContainer = document.getElementById('sb-metadata');
+  if (!metaContainer) {
+    metaContainer = document.createElement('div');
+    metaContainer.id = 'sb-metadata';
+    // insert right before imports
+    const importsContainer = document.getElementById('sb-imports-container');
+    importsContainer.parentNode.insertBefore(metaContainer, importsContainer);
+  }
+  metaContainer.innerHTML = metadataHtml;
 
   // Populate Imports
   const importsList = document.getElementById('sb-imports-list');
@@ -321,3 +386,87 @@ const fgConfig = gui.addFolder('Physics');
 fgConfig.add(physicsConfig, 'nodeRepulsion', 10, 500).onChange(v => Graph.d3Force('charge').strength(-v));
 fgConfig.add(physicsConfig, 'linkDistance', 10, 200).onChange(v => Graph.d3Force('link').distance(v));
 fgConfig.open();
+
+// --- Welcome Modal & Guided Tour Logic ---
+const modal = document.getElementById('welcome-modal');
+const tourUI = document.getElementById('tour-ui');
+let tourSteps = [];
+let currentTourStep = -1;
+
+document.getElementById('btn-start-exploring').addEventListener('click', () => {
+  modal.style.display = 'none';
+  // Slowly zoom in on close
+  Graph.cameraPosition({ z: 1000 }, null, 2000);
+});
+
+document.getElementById('btn-take-tour').addEventListener('click', () => {
+  modal.style.display = 'none';
+  startTour();
+});
+
+// Setup Tour Steps
+function startTour() {
+  tourUI.style.display = 'block';
+  
+  // Find key nodes to tour
+  const rootNode = graphData.nodes.find(n => n.id === '/');
+  const srcNode = graphData.nodes.find(n => n.id === 'src');
+  const componentsNode = graphData.nodes.find(n => n.id === 'src/components');
+  
+  tourSteps = [
+    {
+      title: "Step 1: The Root",
+      desc: "This is your project's root folder. The large cube represents the main directory holding everything together.",
+      node: rootNode || graphData.nodes[0]
+    },
+    {
+      title: "Step 2: Source Code",
+      desc: "Here is your 'src' folder. The glowing orange links represent how your files import and depend on each other.",
+      node: srcNode || graphData.nodes[1]
+    },
+    {
+      title: "Step 3: Components",
+      desc: "This is the components directory. You can click on any file sphere here to see exactly what it imports in the right sidebar.",
+      node: componentsNode || graphData.nodes[2]
+    }
+  ];
+  
+  currentTourStep = 0;
+  executeTourStep();
+}
+
+function executeTourStep() {
+  if (currentTourStep >= tourSteps.length) {
+    endTour();
+    return;
+  }
+  
+  const step = tourSteps[currentTourStep];
+  document.getElementById('tour-title').innerText = step.title;
+  document.getElementById('tour-desc').innerText = step.desc;
+  
+  if (step.node) {
+    // Simulate a click on the node to highlight dependencies and open sidebar
+    Graph.onNodeClick()(step.node);
+  }
+}
+
+document.getElementById('btn-tour-next').addEventListener('click', () => {
+  currentTourStep++;
+  executeTourStep();
+});
+
+document.getElementById('btn-tour-prev').addEventListener('click', () => {
+  if (currentTourStep > 0) {
+    currentTourStep--;
+    executeTourStep();
+  }
+});
+
+document.getElementById('btn-tour-close').addEventListener('click', endTour);
+
+function endTour() {
+  tourUI.style.display = 'none';
+  // Clear selection
+  Graph.onBackgroundClick()();
+}

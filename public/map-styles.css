@@ -300,3 +300,96 @@ body {
   border-top: 1px solid var(--border-color);
   margin: 10px 0;
 }
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  position: relative;
+  width: 500px;
+  max-width: 90vw;
+  text-align: center;
+  padding: 30px;
+}
+
+.modal-content h1 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+.welcome-legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin: 25px 0;
+  text-align: left;
+  background: rgba(0,0,0,0.2);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.welcome-controls {
+  margin-bottom: 25px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.welcome-controls div {
+  margin-bottom: 5px;
+}
+
+.btn-primary, .btn-secondary, .btn-small {
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+  margin: 5px;
+  color: white;
+  transition: opacity 0.2s;
+}
+
+.btn-primary { background: var(--accent); }
+.btn-secondary { background: rgba(255,255,255,0.1); border: 1px solid var(--border-color); }
+.btn-small { padding: 6px 12px; font-size: 12px; background: rgba(255,255,255,0.1); }
+.btn-primary:hover, .btn-secondary:hover, .btn-small:hover { opacity: 0.8; }
+
+/* Legend Grid */
+.legend-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.shortcuts-grid {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+}
+
+/* Tour UI */
+#tour-ui {
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  text-align: center;
+  z-index: 50;
+  border: 1px solid var(--accent);
+  box-shadow: 0 0 20px rgba(88, 166, 255, 0.2);
+}
+
+#tour-ui h3 { margin: 0 0 10px 0; color: var(--accent); }
+#tour-ui p { font-size: 14px; margin-bottom: 20px; }

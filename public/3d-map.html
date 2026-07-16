@@ -52,16 +52,61 @@
     <label><input type="checkbox" id="filter-orphans"> Show Orphans Only</label>
   </div>
 
-  <!-- Legend -->
+  <!-- Welcome Modal -->
+  <div id="welcome-modal" class="modal-overlay">
+    <div class="modal-content panel">
+      <h1>Welcome to the Codebase</h1>
+      <p>This interactive map helps you explore the project architecture, dependencies, and structure.</p>
+      
+      <div class="welcome-legend">
+        <div><span style="color:#58a6ff">🧊</span> Folders</div>
+        <div><span style="color:#e3b341">⚪</span> JavaScript</div>
+        <div><span style="color:#3178c6">⚪</span> TypeScript</div>
+        <div><span style="color:#ff7b72">⚪</span> CSS / Styles</div>
+        <div><span style="color:#a371f7">⚪</span> Config / JSON</div>
+        <div><span style="color:#2ea043">⚪</span> Assets</div>
+      </div>
+
+      <div class="welcome-controls">
+        <div><strong>Left Click / Drag</strong> &rarr; Rotate</div>
+        <div><strong>Right Click / Drag</strong> &rarr; Pan</div>
+        <div><strong>Scroll</strong> &rarr; Zoom</div>
+        <div><strong>Click</strong> &rarr; Focus Node</div>
+      </div>
+
+      <button id="btn-start-exploring" class="btn-primary">Start Exploring</button>
+      <button id="btn-take-tour" class="btn-secondary">Take a Guided Tour</button>
+    </div>
+  </div>
+
+  <!-- Guided Tour UI -->
+  <div id="tour-ui" class="panel" style="display: none;">
+    <h3 id="tour-title">Tour Step</h3>
+    <p id="tour-desc">Description of this step...</p>
+    <div class="tour-controls">
+      <button id="btn-tour-prev" class="btn-small">Prev</button>
+      <button id="btn-tour-next" class="btn-small">Next</button>
+      <button id="btn-tour-close" class="btn-small" style="background: rgba(255,0,0,0.2);">End Tour</button>
+    </div>
+  </div>
+
+  <!-- Legend & Shortcuts -->
   <div id="legend" class="panel">
-    <div class="legend-item"><div class="color-box" style="background: #58a6ff;"></div> Folder</div>
-    <div class="legend-item"><div class="color-box" style="background: #e3b341;"></div> JavaScript (.js, .jsx)</div>
-    <div class="legend-item"><div class="color-box" style="background: #3178c6;"></div> TypeScript (.ts, .tsx)</div>
-    <div class="legend-item"><div class="color-box" style="background: #ff7b72;"></div> CSS / SCSS</div>
-    <div class="legend-item"><div class="color-box" style="background: #2ea043;"></div> Images / Media</div>
-    <div class="legend-item"><div class="color-box" style="background: #a371f7;"></div> JSON / Config</div>
-    <div class="legend-item"><div class="color-box" style="background: #8b949e;"></div> Markdown / Docs</div>
-    <div class="legend-item"><div class="color-box" style="background: #f0f6fc;"></div> Other</div>
+    <strong>Legend</strong>
+    <div class="legend-grid">
+      <div class="legend-item"><span style="color:#58a6ff">🧊</span> Folder</div>
+      <div class="legend-item"><span style="color:#e3b341">📄</span> JS</div>
+      <div class="legend-item"><span style="color:#3178c6">📄</span> TS</div>
+      <div class="legend-item"><span style="color:#ff7b72">🎨</span> CSS</div>
+      <div class="legend-item"><span style="color:#2ea043">🖼</span> Asset</div>
+      <div class="legend-item"><span style="color:#a371f7">📦</span> Config</div>
+    </div>
+    <hr style="border-color: rgba(255,255,255,0.1); margin: 8px 0;">
+    <strong>Shortcuts</strong>
+    <div class="shortcuts-grid">
+      <div><span class="key">/</span> Search</div>
+      <div><span class="key">ESC</span> Reset Focus</div>
+    </div>
   </div>
 
   <!-- Sidebar Node Details -->
@@ -99,14 +144,7 @@
     </div>
   </div>
 
-  <!-- Controls Hint -->
-  <div id="controls-hint" class="panel">
-    <span><span class="key">Left Click</span> Rotate</span><br>
-    <span><span class="key">Right Click</span> Pan</span><br>
-    <span><span class="key">Scroll</span> Zoom</span><br>
-    <span><span class="key">Double Click</span> Focus Node</span><br>
-    <span><span class="key">Click Background</span> Clear Selection</span>
-  </div>
+
 
   <!-- The 3D Graph Container -->
   <div id="3d-graph"></div>
