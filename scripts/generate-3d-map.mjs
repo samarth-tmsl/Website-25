@@ -6,8 +6,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
-const IGNORE_DIRS = ['node_modules', '.git', '.github', 'dist', 'build'];
-const IGNORE_FILES = ['generate-3d-map.mjs', '3d-map.html', 'package-lock.json', 'pnpm-lock.yaml', 'yarn.lock'];
+const IGNORE_DIRS = ['node_modules', '.git', '.github', 'dist', 'build', '.next', 'out'];
+// Keep public mostly, maybe ignore output JSON if we run recursively
+const IGNORE_FILES = ['generate-3d-map.mjs', '3d-map.html', 'graph-data.json', 'map-app.js', 'map-styles.css', 'package-lock.json', 'pnpm-lock.yaml', 'yarn.lock'];
 
 const nodes = [];
 const links = [];
@@ -16,26 +17,40 @@ function getRelativePath(absolutePath) {
   return path.relative(rootDir, absolutePath).replace(/\\/g, '/');
 }
 
-function traverseDirectory(currentPath, parentNodeId = null) {
+function getExtension(filename) {
+  const ext = path.extname(filename).toLowerCase();
+  return ext ? ext.substring(1) : 'unknown';
+}
+
+function traverseDirectory(currentPath, parentNodeId = null, depth = 0) {
   const stats = fs.statSync(currentPath);
   const isDirectory = stats.isDirectory();
   const id = getRelativePath(currentPath) || '/';
-  const name = path.basename(currentPath) || 'Website-25 (Root)';
+  const name = path.basename(currentPath) || 'Root';
 
   if (id !== '/') {
-    if (isDirectory && IGNORE_DIRS.includes(name)) return;
-    if (!isDirectory && IGNORE_FILES.includes(name)) return;
+    if (isDirectory && IGNORE_DIRS.includes(name)) return null;
+    if (!isDirectory && IGNORE_FILES.includes(name)) return null;
   }
 
-  // Create Node
-  nodes.push({
+  const node = {
     id,
     name,
     type: isDirectory ? 'directory' : 'file',
-    val: isDirectory ? 5 : 2, // Size in graph
-  });
+    depth,
+    size: stats.size,
+    created: stats.birthtime,
+    modified: stats.mtime,
+    imports: 0, // computed later
+    importedBy: 0, // computed later
+    loc: 0,
+    childrenCount: 0,
+    extension: isDirectory ? null : getExtension(name),
+    val: isDirectory ? 5 : 2 // default base value
+  };
 
-  // Link to parent
+  nodes.push(node);
+
   if (parentNodeId !== null) {
     links.push({
       source: parentNodeId,
@@ -44,39 +59,65 @@ function traverseDirectory(currentPath, parentNodeId = null) {
     });
   }
 
+  let folderSize = 0;
+
   if (isDirectory) {
     const items = fs.readdirSync(currentPath);
+    let childFolders = 0;
+    let childFiles = 0;
+
     for (const item of items) {
-      traverseDirectory(path.join(currentPath, item), id);
+      const childNode = traverseDirectory(path.join(currentPath, item), id, depth + 1);
+      if (childNode) {
+        folderSize += childNode.size;
+        node.childrenCount++;
+        if (childNode.type === 'directory') childFolders++;
+        else childFiles++;
+      }
     }
+    node.size = folderSize; // recursive folder size
+    node.childFolders = childFolders;
+    node.childFiles = childFiles;
+    node.val = Math.max(5, Math.min(20, 5 + Math.log2(node.childrenCount + 1) * 2));
   } else {
-    // If it's a JS/TS file, extract imports
-    if (/\.(js|jsx|ts|tsx)$/.test(name)) {
-      extractImports(currentPath, id);
+    // Basic LOC and File analysis
+    if (/\.(js|jsx|ts|tsx|css|scss|html|json|md)$/.test(name)) {
+      try {
+        const content = fs.readFileSync(currentPath, 'utf-8');
+        node.loc = content.split('\n').length;
+        node.val = Math.max(2, Math.min(10, 2 + Math.log10(node.loc + 1)));
+
+        if (/\.(js|jsx|ts|tsx)$/.test(name)) {
+          extractImports(content, currentPath, id);
+        }
+      } catch (e) {
+        // ignore read errors
+      }
     }
   }
+
+  return node;
 }
 
-function extractImports(filePath, fileId) {
+function extractImports(content, filePath, fileId) {
   try {
-    const content = fs.readFileSync(filePath, 'utf-8');
-    // Basic regex for imports: import ... from 'path'; or import 'path';
     const importRegex = /import\s+(?:.*?\s+from\s+)?['"](.*?)['"]/g;
+    const dynamicImportRegex = /import\(['"](.*?)['"]\)/g;
     const requireRegex = /require\(['"](.*?)['"]\)/g;
 
-    const findLinks = (regex) => {
+    const findLinks = (regex, linkType) => {
       let match;
       while ((match = regex.exec(content)) !== null) {
         let importPath = match[1];
         if (importPath.startsWith('.')) {
-          // Resolve relative import to absolute path
           let resolvedAbsPath = path.resolve(path.dirname(filePath), importPath);
           
-          // Try to guess extension if missing
           let finalAbsPath = resolvedAbsPath;
           if (!fs.existsSync(finalAbsPath)) {
             if (fs.existsSync(resolvedAbsPath + '.js')) finalAbsPath += '.js';
             else if (fs.existsSync(resolvedAbsPath + '.jsx')) finalAbsPath += '.jsx';
+            else if (fs.existsSync(resolvedAbsPath + '.ts')) finalAbsPath += '.ts';
+            else if (fs.existsSync(resolvedAbsPath + '.tsx')) finalAbsPath += '.tsx';
             else if (fs.existsSync(resolvedAbsPath + '/index.js')) finalAbsPath += '/index.js';
             else if (fs.existsSync(resolvedAbsPath + '/index.jsx')) finalAbsPath += '/index.jsx';
           }
@@ -86,88 +127,43 @@ function extractImports(filePath, fileId) {
             links.push({
               source: fileId,
               target: targetId,
-              type: 'import'
+              type: linkType
             });
           }
         }
       }
     };
 
-    findLinks(importRegex);
-    findLinks(requireRegex);
+    findLinks(importRegex, 'import');
+    findLinks(dynamicImportRegex, 'dynamic-import');
+    findLinks(requireRegex, 'import');
   } catch (err) {
-    console.error(`Error reading ${filePath}:`, err);
+    console.error(`Error processing imports for ${filePath}:`, err);
   }
 }
 
 console.log('Traversing directory tree...');
 traverseDirectory(rootDir);
 
-// Filter links to make sure targets exist (in case of dynamic/unresolved imports)
+// Post-process metrics
 const validNodes = new Set(nodes.map(n => n.id));
 const validLinks = links.filter(l => validNodes.has(l.source) && validNodes.has(l.target));
 
+validLinks.forEach(link => {
+  if (link.type === 'import' || link.type === 'dynamic-import') {
+    const sourceNode = nodes.find(n => n.id === link.source);
+    const targetNode = nodes.find(n => n.id === link.target);
+    if (sourceNode) sourceNode.imports++;
+    if (targetNode) targetNode.importedBy++;
+  }
+});
+
 const graphData = { nodes, links: validLinks };
 
-const htmlTemplate = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project 3D Dependency Map</title>
-  <style>
-    body { margin: 0; padding: 0; overflow: hidden; background-color: #000011; font-family: sans-serif; }
-    #3d-graph { width: 100vw; height: 100vh; }
-    #ui { position: absolute; top: 10px; left: 10px; color: white; z-index: 10; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; }
-  </style>
-  <script src="https://unpkg.com/3d-force-graph"></script>
-</head>
-<body>
-  <div id="ui">
-    <h2>Project Graph</h2>
-    <p>Scroll to zoom, drag to rotate.</p>
-    <div>
-      <span style="color: #64b5f6;">●</span> Folders
-      <br>
-      <span style="color: #81c784;">●</span> Files
-      <br>
-      <span style="color: #ffffff;">—</span> Hierarchy Links
-      <br>
-      <span style="color: #ffb74d; border-bottom: 2px dashed #ffb74d">---</span> Import Links
-    </div>
-  </div>
-  <div id="3d-graph"></div>
+const outputDir = path.join(rootDir, 'public');
+if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir);
 
-  <script>
-    const gData = ${JSON.stringify(graphData)};
+const outputPath = path.join(outputDir, 'graph-data.json');
+fs.writeFileSync(outputPath, JSON.stringify(graphData, null, 2));
 
-    const Graph = ForceGraph3D()(document.getElementById('3d-graph'))
-      .graphData(gData)
-      .nodeLabel('name')
-      .nodeColor(node => node.type === 'directory' ? '#64b5f6' : '#81c784')
-      .nodeRelSize(4)
-      .nodeVal('val')
-      .linkColor(link => link.type === 'hierarchy' ? 'rgba(255,255,255,0.2)' : 'rgba(255, 183, 77, 0.8)')
-      .linkWidth(link => link.type === 'hierarchy' ? 1 : 2)
-      .linkDirectionalArrowLength(link => link.type === 'import' ? 3.5 : 0)
-      .linkDirectionalArrowRelPos(1)
-      .onNodeClick(node => {
-        // Aim at node from outside it
-        const distance = 40;
-        const distRatio = 1 + distance/Math.hypot(node.x, node.y, node.z);
-
-        Graph.cameraPosition(
-          { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, // new position
-          node, // lookAt ({ x, y, z })
-          3000  // ms transition duration
-        );
-      });
-  </script>
-</body>
-</html>
-`;
-
-const outputPath = path.join(rootDir, 'public', '3d-map.html');
-fs.writeFileSync(outputPath, htmlTemplate);
-console.log('Successfully generated 3d-map.html');
+console.log('Successfully generated public/graph-data.json with', nodes.length, 'nodes and', validLinks.length, 'links.');
