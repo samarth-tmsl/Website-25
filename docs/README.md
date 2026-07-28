@@ -22,6 +22,10 @@ Please select a document below to explore specific parts of the platform:
    * Standards for component styling, React design patterns, custom state additions, and asset image optimization.
 6. **[Deployment & Operations](./deployment.md)**
    * Guides on Vercel deployment, settings (`vercel.json`), and analytics dashboards.
+7. **[Troubleshooting Guide](./troubleshooting.md)**
+   * Outlines solutions to typical Vite server, SPA routing, and Capacitor/Android build challenges.
+8. **[Developer Tips & Tricks](./tips-and-tricks.md)**
+   * Productivity tips, mobile WebView inspecting, custom page layouts, and release smoke test validation.
 
 ---
 
