@@ -36,10 +36,16 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "visualize": "node scripts/generate-3d-map.mjs"
+    "visualize": "node scripts/generate-3d-map.mjs",
+    "prepare": "husky",
+    "convert-images": "node scripts/convert-images/index.mjs"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
+    "fast-glob": "^3.3.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.2.0",
+    "sharp": "^0.35.3",
     "vite": "^4.0.0"
   },
   "packageManager": "pnpm@11.3.0"

@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+echo "🖼️ Converting images..."
+
+node scripts/convert-images/index.mjs
+
+if [ $? -ne 0 ]; then
+  echo "❌ Image conversion failed."
+  exit 1
+fi

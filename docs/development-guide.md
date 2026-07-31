@@ -44,10 +44,10 @@ Static list contents (e.g., team members, previous year papers, YouTube playlist
 
 ## 🖼️ Image & Asset Handling
 
-Large asset images can degrade site loading speed and performance metrics. The repository includes an automated workflow for image compression.
+Large asset images can degrade site loading speed and performance metrics. The repository includes an automated pre-commit hook via Husky for local image compression.
 
-### Automated PR Image Optimizer (`.github/workflows/image-optimizer.yml`)
-* When you submit a **Pull Request**, an automated workflow checks for modified or new image formats (`.png`, `.jpg`, `.jpeg`, `.webp`, `.svg`, `.gif`, `.avif`).
-* **WebP Export**: It automatically optimizes images, exports them as `.webp`, and replaces the original source files in the branch.
-* **Exempt Paths**: The directories `public/images2/new/guest/**` and `android/**` are exempted from image compression checks.
-* **Guideline**: If you introduce brand new assets, place them under `public/images/` and allow the automated pull request checks to compress and replace them.
+### Local Pre-Commit Image Optimizer (`.husky/pre-commit`)
+* When you commit files, a pre-commit hook runs `pnpm convert-images` (defined in `scripts/convert-images/index.mjs`) to check for new or modified image files (`.png`, `.jpg`, `.jpeg`).
+* **WebP Export**: It automatically optimizes images, exports them as `.webp`, and replaces the original source files in the Git index.
+* **Exempt Paths**: The directories `public/images2/new/guest/` and `android/` are exempted from image compression checks.
+* **Guideline**: If you introduce brand new assets, place them under `public/images/`. When you stage and commit them, the pre-commit hook will automatically optimize them, convert them to `.webp`, and update any references inside your staged source files.
