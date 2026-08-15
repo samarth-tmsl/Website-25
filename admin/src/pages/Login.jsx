@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { api, setApiUrl, getApiUrl, setAuthToken, setAdminUser } from '../services/api';
+import { api, getApiUrl, setAuthToken, setAdminUser } from '../services/api';
 
 function Login({ onLoginSuccess }) {
-  const [gasUrl, setGasUrl] = useState(getApiUrl());
-  const [isUrlConfigured, setIsUrlConfigured] = useState(!!getApiUrl());
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const isUrlConfigured = !!getApiUrl();
+
+  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "";
+  const isClientIdConfigured = !!googleClientId;
 
   useEffect(() => {
-    if (isUrlConfigured && window.google) {
+    if (isUrlConfigured && isClientIdConfigured && window.google) {
       /* global google */
       google.accounts.id.initialize({
-        client_id: "902252829593-a46qmlooovckjm98p7nj2m0upennfd5n.apps.googleusercontent.com",
+        client_id: googleClientId,
         callback: handleCredentialResponse
       });
       google.accounts.id.renderButton(
@@ -19,7 +21,7 @@ function Login({ onLoginSuccess }) {
         { theme: "dark", size: "large", width: "100%" }
       );
     }
-  }, [isUrlConfigured]);
+  }, [isUrlConfigured, isClientIdConfigured]);
 
   const handleCredentialResponse = async (response) => {
     setError('');
@@ -37,21 +39,6 @@ function Login({ onLoginSuccess }) {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleSaveUrl = (e) => {
-    e.preventDefault();
-    if (!gasUrl) {
-      setError('Please provide a valid URL.');
-      return;
-    }
-    if (!gasUrl.startsWith('https://script.google.com/')) {
-      setError('URL must start with https://script.google.com/macros/s/...');
-      return;
-    }
-    setApiUrl(gasUrl);
-    setIsUrlConfigured(true);
-    setError('');
   };
 
   return (
@@ -80,25 +67,19 @@ function Login({ onLoginSuccess }) {
           </div>
         )}
 
-        {!isUrlConfigured ? (
-          <form onSubmit={handleSaveUrl}>
-            <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '16px' }}>
-              To begin, configure your Google Apps Script Web App URL.
+        {!isUrlConfigured || !isClientIdConfigured ? (
+          <div style={{ textAlign: 'center', color: 'var(--danger-color)', padding: '16px 0' }}>
+            <p style={{ fontWeight: '600', marginBottom: '8px' }}>Configuration Error</p>
+            <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '8px' }}>
+              {!isUrlConfigured && "• VITE_API_URL is not configured."}
             </p>
-            <div>
-              <label>Google Apps Script Web App URL</label>
-              <input 
-                type="url" 
-                placeholder="https://script.google.com/macros/s/..." 
-                value={gasUrl} 
-                onChange={(e) => setGasUrl(e.target.value)} 
-                required 
-              />
-            </div>
-            <button className="btn btn-primary" style={{ width: '100%', marginTop: '20px' }} type="submit">
-              Save URL & Continue
-            </button>
-          </form>
+            <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
+              {!isClientIdConfigured && "• VITE_GOOGLE_CLIENT_ID is not configured."}
+            </p>
+            <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '16px' }}>
+              Please configure these environment variables inside your admin panel <code>.env</code> file before building.
+            </p>
+          </div>
         ) : (
           <div>
             <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '24px', textAlign: 'center' }}>
@@ -110,16 +91,6 @@ function Login({ onLoginSuccess }) {
             ) : (
               <div id="google-signin-btn"></div>
             )}
-
-            <div style={{ marginTop: '24px', textAlign: 'center' }}>
-              <button 
-                className="btn btn-secondary" 
-                style={{ fontSize: '12px', padding: '6px 12px' }}
-                onClick={() => setIsUrlConfigured(false)}
-              >
-                Change API Server URL
-              </button>
-            </div>
           </div>
         )}
       </div>

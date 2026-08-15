@@ -56,18 +56,22 @@ The admin panel is a React + Vite application that compiles to static HTML/JS/CS
    - Add local development URL (e.g. `http://localhost:5174`).
    - Add your production admin dashboard URL (e.g. `https://admin.samarthtmsl.in`).
 8. Click **Create** and copy your **Client ID**.
-9. Open [admin/src/pages/Login.jsx](file:///e:/projects/Website-25/admin/src/pages/Login.jsx) and replace the `client_id` string inside `google.accounts.id.initialize` with your new OAuth Client ID.
 
-### Step 2: Build the Admin Panel
-1. Install dependencies and compile using pnpm at the root directory:
+### Step 2: Configure Environment variables
+1. In the `admin/` directory, create a `.env` file (or set it in your build provider settings like Vercel).
+2. Configure both the Web App API URL and the Google Client ID:
+   ```env
+   VITE_API_URL=https://script.google.com/macros/s/YOUR_GAS_SCRIPT_ID/exec
+   VITE_GOOGLE_CLIENT_ID=YOUR_GOOGLE_OAUTH_CLIENT_ID.apps.googleusercontent.com
+   ```
+
+### Step 3: Build and deploy
+1. Install dependencies and compile:
    ```bash
    pnpm --filter samarth-cms-admin build
    ```
-2. The compiled files will reside inside `admin/dist/`.
+2. Deploy the compiled `admin/dist/` folder to Vercel, Netlify, or any static hosting provider.
 
-### Step 3: Upload to host
-- You can deploy the `admin/dist/` folder to any static hosting provider (Vercel, Netlify, Github Pages, or your own VPS).
-- On the first load, navigate to the Login page. A setup box will ask for the Google Apps Script Web App URL. Paste the URL copied in the backend deployment step, and click **Save**. This will configure the endpoint locally in the browser!
 
 ---
 
