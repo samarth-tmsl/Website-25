@@ -11,7 +11,7 @@ function Login({ onLoginSuccess }) {
     if (isUrlConfigured && window.google) {
       /* global google */
       google.accounts.id.initialize({
-        client_id: "777328659850-puj2h3t7kig8koc5b3cuc6mghvce8e4i.apps.googleusercontent.com", // Fallback or template client_id. The user can override it in settings.
+        client_id: "902252829593-a46qmlooovckjm98p7nj2m0upennfd5n.apps.googleusercontent.com",
         callback: handleCredentialResponse
       });
       google.accounts.id.renderButton(
