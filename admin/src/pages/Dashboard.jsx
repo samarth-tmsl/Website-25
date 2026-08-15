@@ -6,7 +6,7 @@ function Dashboard() {
   const [stats, setStats] = useState({
     team: 0,
     guests: 0,
-    albums: 0,
+    images: 0,
     events: 0,
     announcements: 0,
     sponsors: 0
@@ -22,10 +22,10 @@ function Dashboard() {
         setError('');
         
         // Fetch values
-        const [team, guests, albums, events, announcements, sponsors, auditLogs] = await Promise.all([
+        const [team, guests, galleryImages, events, announcements, sponsors, auditLogs] = await Promise.all([
           api.getTeam().catch(() => []),
           api.getGuests().catch(() => []),
-          api.getGalleryAlbums().catch(() => []),
+          api.getGalleryAlbumImages().catch(() => []),
           api.getEvents().catch(() => []),
           api.getAnnouncements().catch(() => []),
           api.getSponsors().catch(() => []),
@@ -35,7 +35,7 @@ function Dashboard() {
         setStats({
           team: team.length,
           guests: guests.length,
-          albums: albums.length,
+          images: galleryImages.length,
           events: events.length,
           announcements: announcements.length,
           sponsors: sponsors.length
@@ -90,8 +90,8 @@ function Dashboard() {
         <div className="glass-card stat-card">
           <div className="stat-icon"><FiImage /></div>
           <div>
-            <div className="stat-value">{stats.albums}</div>
-            <div className="stat-label">Gallery Albums</div>
+            <div className="stat-value">{stats.images}</div>
+            <div className="stat-label">Gallery Photos</div>
           </div>
         </div>
 
