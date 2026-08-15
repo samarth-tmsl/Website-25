@@ -153,8 +153,8 @@ export const api = {
   updateAlbum: (data) => request("updateAlbum", "POST", data),
   deleteAlbum: (id, hardDelete = false) => request("deleteAlbum", "POST", { id, hardDelete }),
   
-  getGalleryAlbumImages: (albumId) => request("adminGetGalleryImages", "GET", { albumId }),
-  uploadGalleryImage: (albumId, imagePayload) => request("uploadGalleryImage", "POST", { albumId, image: imagePayload }),
+  getGalleryAlbumImages: () => request("adminGetGalleryImages"),
+  uploadGalleryImage: (albumId, imagePayload) => request("uploadGalleryImage", "POST", { albumId: "GENERAL", image: imagePayload }),
   updateGalleryImage: (data) => request("updateGalleryImage", "POST", data),
   deleteGalleryImage: (id) => request("deleteGalleryImage", "POST", { id }),
 

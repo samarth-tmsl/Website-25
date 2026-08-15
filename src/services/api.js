@@ -133,9 +133,8 @@ export const api = {
     return fetchFromApi("getGalleryAlbums", params);
   },
 
-  getGalleryImages: (albumId) => {
-    if (!albumId) return Promise.resolve([]);
-    return fetchFromApi("getGalleryImages", { albumId });
+  getGalleryImages: () => {
+    return fetchFromApi("getGalleryImages");
   },
 
   getEvents: (academicYear = "") => {

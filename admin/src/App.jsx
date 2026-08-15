@@ -48,7 +48,7 @@ function Sidebar({ user, onLogout }) {
         </li>
         <li>
           <Link to="/gallery" className={`menu-item ${activeClass('/gallery')}`}>
-            <FiImage /> Gallery Albums
+            <FiImage /> Media Gallery
           </Link>
         </li>
         <li>

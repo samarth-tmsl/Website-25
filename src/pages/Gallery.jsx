@@ -1146,8 +1146,6 @@ function Gallery(props) {
     },
   ];
 
-  const [albums, setAlbums] = useState([]);
-  const [selectedAlbumId, setSelectedAlbumId] = useState("all");
   const [loading, setLoading] = useState(true);
 
   // We keep galleryData as static fallback
@@ -1155,26 +1153,13 @@ function Gallery(props) {
     async function loadGallery() {
       try {
         setLoading(true);
-        const fetchedAlbums = await api.getGalleryAlbums();
-        setAlbums(fetchedAlbums);
-        
-        if (fetchedAlbums && fetchedAlbums.length > 0) {
-          // Fetch images of all albums or first album
-          const allImages = [];
-          for (let i = 0; i < fetchedAlbums.length; i++) {
-            const imgs = await api.getGalleryImages(fetchedAlbums[i].id);
-            allImages.push(...imgs.map(im => ({
-              id: im.id,
-              img: im.img,
-              alt: im.caption || fetchedAlbums[i].title,
-              albumId: fetchedAlbums[i].id
-            })));
-          }
-          if (allImages.length > 0) {
-            setDisplayedImages(allImages);
-          } else {
-            setDisplayedImages(galleryData);
-          }
+        const imgs = await api.getGalleryImages();
+        if (imgs && imgs.length > 0) {
+          setDisplayedImages(imgs.map(im => ({
+            id: im.id,
+            img: im.img,
+            alt: im.caption || "Event@Samarth"
+          })));
         } else {
           setDisplayedImages(galleryData);
         }
@@ -1188,38 +1173,6 @@ function Gallery(props) {
     loadGallery();
   }, []);
 
-  const handleSelectAlbum = async (albumId) => {
-    setSelectedAlbumId(albumId);
-    try {
-      setLoading(true);
-      if (albumId === "all") {
-        const allImages = [];
-        for (let i = 0; i < albums.length; i++) {
-          const imgs = await api.getGalleryImages(albums[i].id);
-          allImages.push(...imgs.map(im => ({
-            id: im.id,
-            img: im.img,
-            alt: im.caption || albums[i].title,
-            albumId: albums[i].id
-          })));
-        }
-        setDisplayedImages(allImages.length > 0 ? allImages : galleryData);
-      } else {
-        const imgs = await api.getGalleryImages(albumId);
-        const albumTitle = albums.find(a => a.id === albumId)?.title || "Event@Samarth";
-        setDisplayedImages(imgs.map(im => ({
-          id: im.id,
-          img: im.img,
-          alt: im.caption || albumTitle
-        })));
-      }
-    } catch (err) {
-      console.error("Failed to load album images", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div className="wrapper">
       <PageTitle title="Gallery" desc="Our Glorious Galleria" />
@@ -1232,47 +1185,6 @@ function Gallery(props) {
                 <h3 className="heading"> Our Gallery </h3>
               </div>
             </div>
-
-            {/* Album Tabs */}
-            {albums.length > 0 && (
-              <div className="col-12" style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '30px' }}>
-                <button 
-                  className="action-btn"
-                  style={{
-                    padding: '8px 18px',
-                    borderRadius: '20px',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    background: selectedAlbumId === 'all' ? 'var(--accent-gradient, #3b82f6)' : 'rgba(255,255,255,0.05)',
-                    color: '#fff',
-                    cursor: 'pointer',
-                    fontSize: '14px',
-                    transition: 'all 0.3s'
-                  }}
-                  onClick={() => handleSelectAlbum('all')}
-                >
-                  All Albums
-                </button>
-                {albums.map(alb => (
-                  <button
-                    key={alb.id}
-                    className="action-btn"
-                    style={{
-                      padding: '8px 18px',
-                      borderRadius: '20px',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      background: selectedAlbumId === alb.id ? 'linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)' : 'rgba(255,255,255,0.05)',
-                      color: '#fff',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      transition: 'all 0.3s'
-                    }}
-                    onClick={() => handleSelectAlbum(alb.id)}
-                  >
-                    {alb.title}
-                  </button>
-                ))}
-              </div>
-            )}
 
             <div className="image1 gallery-container">
               {loading ? (

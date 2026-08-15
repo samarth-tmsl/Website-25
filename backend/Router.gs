@@ -25,9 +25,7 @@ function routeGet(e) {
       return sendSuccess(getGalleryAlbumsPublic(e.parameter));
     }
     if (action === "getGalleryImages") {
-      var albumId = e.parameter.albumId;
-      if (!albumId) throw new Error("Missing required parameter: albumId.");
-      return sendSuccess(getGalleryAlbumImagesPublic(albumId));
+      return sendSuccess(getGalleryAlbumImagesPublic());
     }
     if (action === "getEvents") {
       return sendSuccess(getEventsPublic(e.parameter));
@@ -64,9 +62,7 @@ function routeGet(e) {
       return sendSuccess(getGalleryAlbumsAdmin(user));
     }
     if (action === "adminGetGalleryImages") {
-      var albumId = e.parameter.albumId;
-      if (!albumId) throw new Error("Missing albumId.");
-      return sendSuccess(getGalleryAlbumImagesAdmin(user, albumId));
+      return sendSuccess(getGalleryAlbumImagesAdmin(user));
     }
     if (action === "adminGetEvents") {
       return sendSuccess(getEventsAdmin(user));
@@ -230,9 +226,7 @@ function routePost(e) {
       case "adminGetGalleryAlbums":
         return sendSuccess(getGalleryAlbumsAdmin(user));
       case "adminGetGalleryImages":
-        var albumId = postData.albumId || e.parameter.albumId;
-        if (!albumId) throw new Error("Missing albumId.");
-        return sendSuccess(getGalleryAlbumImagesAdmin(user, albumId));
+        return sendSuccess(getGalleryAlbumImagesAdmin(user));
       case "adminGetEvents":
         return sendSuccess(getEventsAdmin(user));
       case "adminGetSponsors":
