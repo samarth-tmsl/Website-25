@@ -92,10 +92,13 @@ function SettingsAdmin() {
   };
 
   const toggleBoolean = (key) => {
-    setFormSettings(prev => ({
-      ...prev,
-      [key]: prev[key] === 'TRUE' ? 'FALSE' : 'TRUE'
-    }));
+    setFormSettings(prev => {
+      const isTrue = prev[key] === 'TRUE' || prev[key] === true;
+      return {
+        ...prev,
+        [key]: isTrue ? 'FALSE' : 'TRUE'
+      };
+    });
   };
 
   return (
@@ -165,7 +168,7 @@ function SettingsAdmin() {
                   <input 
                     type="checkbox" 
                     style={{ width: '24px', height: '24px', cursor: 'pointer' }}
-                    checked={formSettings.maintenance_mode === 'TRUE'}
+                    checked={formSettings.maintenance_mode === 'TRUE' || formSettings.maintenance_mode === true}
                     onChange={() => toggleBoolean('maintenance_mode')}
                     disabled={currentUser?.role !== 'SUPER_ADMIN'}
                   />
@@ -179,7 +182,7 @@ function SettingsAdmin() {
                   <input 
                     type="checkbox" 
                     style={{ width: '24px', height: '24px', cursor: 'pointer' }}
-                    checked={formSettings.gallery_enabled === 'TRUE'}
+                    checked={formSettings.gallery_enabled === 'TRUE' || formSettings.gallery_enabled === true}
                     onChange={() => toggleBoolean('gallery_enabled')}
                     disabled={currentUser?.role !== 'SUPER_ADMIN'}
                   />
@@ -193,7 +196,7 @@ function SettingsAdmin() {
                   <input 
                     type="checkbox" 
                     style={{ width: '24px', height: '24px', cursor: 'pointer' }}
-                    checked={formSettings.announcements_enabled === 'TRUE'}
+                    checked={formSettings.announcements_enabled === 'TRUE' || formSettings.announcements_enabled === true}
                     onChange={() => toggleBoolean('announcements_enabled')}
                     disabled={currentUser?.role !== 'SUPER_ADMIN'}
                   />
@@ -207,7 +210,7 @@ function SettingsAdmin() {
                   <input 
                     type="checkbox" 
                     style={{ width: '24px', height: '24px', cursor: 'pointer' }}
-                    checked={formSettings.sponsors_enabled === 'TRUE'}
+                    checked={formSettings.sponsors_enabled === 'TRUE' || formSettings.sponsors_enabled === true}
                     onChange={() => toggleBoolean('sponsors_enabled')}
                     disabled={currentUser?.role !== 'SUPER_ADMIN'}
                   />
