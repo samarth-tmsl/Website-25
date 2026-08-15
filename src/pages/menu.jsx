@@ -42,6 +42,11 @@ const menus = [
                 sub: 'Gallery',
                 links: '/gallery'
             },
+            {
+                id: 4,
+                sub: 'Achievers',
+                links: '/achievers'
+            },
             
         ]
 

@@ -10,6 +10,7 @@ import Exam from"./Exam";
 import Aspirants from "./Aspirants";
 import Study from "./Study";
 import Results from "./Results";
+import Achievers from "./Achievers";
 
 
 const routes = [
@@ -25,6 +26,7 @@ const routes = [
   { path : '/Aspirants',component: <Aspirants />},
   { path : '/study',component: <Study />},
   { path : '/results',component: <Results />},
+  { path: '/achievers', component: <Achievers />},
   
 
 ]
