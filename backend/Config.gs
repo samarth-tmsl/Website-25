@@ -3,16 +3,16 @@
 
 // NOTE: Replace these with the actual IDs of your Google Spreadsheet and Google Drive root folder.
 // If left blank or if the script is run for the first time, you can execute the setup function to auto-create them.
-var SPREADSHEET_ID = ""; 
-var ROOT_FOLDER_ID = "";
+var SPREADSHEET_ID = "1-qINUkgJPso2oWhoyH4uF8ARGSEW-jsaEfpkXOsIhuk"; 
+var ROOT_FOLDER_ID = "1jVTchKRWxQKQXbXtun3ZvTncKVG-QoYN";
 
 var FOLDER_IDS = {
-  Team: "",
-  Guests: "",
-  Gallery: "",
-  Events: "",
-  Sponsors: "",
-  Misc: ""
+  Team: "1k2VlG3rmnjwaMXYEMC4kiVbImcoFo17E",
+  Guests: "1h_MfEFHzFz3VBVJWikgkLEiQzfC8w4Cd",
+  Gallery: "1dixZPG5xaUooXaW2-G9muXlY_fEYs_DC",
+  Events: "1N3FYBKNw0glJ2f7E8iGeGIC8Xd02F1Lw",
+  Sponsors: "1XI6gjaw-Pg_0KqAvbNjUdSA8sp43j-jg",
+  Misc: "1dnADl-2vcd1xudApl9sILxDdLCP5KJIp"
 };
 
 // Sheet names
