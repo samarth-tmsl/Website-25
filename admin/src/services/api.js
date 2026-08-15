@@ -52,13 +52,30 @@ async function request(action, method = "GET", payload = null) {
     throw new Error("API URL is not configured. Please set the Google Apps Script Web App URL in settings.");
   }
 
-  const token = getAuthToken();
-  let url = `${apiUrl}?action=${action}`;
+  // Retrieve token (either from localStorage or payload context)
+  const token = getAuthToken() || (payload && (payload.token || payload.idToken)) || "";
   
-  if (method === "GET") {
-    if (token) {
-      url += `&token=${encodeURIComponent(token)}`;
-    }
+  // Force POST for any authenticated admin operations to prevent URL-length CORS blocks with JWT tokens
+  const usePost = (method !== "GET") || !!token || action === "verifySession";
+  
+  let url = `${apiUrl}?action=${action}`;
+  const options = {
+    method: usePost ? "POST" : "GET",
+    mode: "cors",
+    headers: {}
+  };
+
+  if (usePost) {
+    options.headers["Content-Type"] = "text/plain;charset=utf-8";
+    
+    // Construct body payload ensuring token is nested inside
+    const bodyObj = {
+      token: token,
+      ...payload
+    };
+    options.body = JSON.stringify(bodyObj);
+  } else {
+    // Public requests: append standard query parameters
     if (payload) {
       Object.keys(payload).forEach(key => {
         if (payload[key] !== undefined && payload[key] !== null) {
@@ -66,24 +83,6 @@ async function request(action, method = "GET", payload = null) {
         }
       });
     }
-  }
-
-  const options = {
-    method: method === "GET" ? "GET" : "POST",
-    mode: "cors",
-    headers: {}
-  };
-
-  if (method !== "GET") {
-    options.headers["Content-Type"] = "text/plain;charset=utf-8"; // Standard for avoiding CORS preflight issue with GAS
-    const bodyObj = {
-      token: token,
-      ...payload
-    };
-    options.body = JSON.stringify(bodyObj);
-    
-    // Also include action in query parameter for POST to help Apps Script router dispatch early
-    url = `${apiUrl}?action=${action}`;
   }
 
   try {

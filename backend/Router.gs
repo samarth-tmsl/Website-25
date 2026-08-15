@@ -214,8 +214,36 @@ function routePost(e) {
       case "updateSettings":
         return sendSuccess(updateSettingsController(user, postData.settings));
         
+      // ADMIN READS ROUTED VIA POST
+      case "verifySession":
+        return sendSuccess({ valid: true, user: user });
+      case "adminGetSettings":
+        return sendSuccess(getSettingsAdminController(user));
+      case "adminGetAdmins":
+        return sendSuccess(getAdminsAdminController(user));
+      case "adminGetAcademicYears":
+        return sendSuccess(getAcademicYearsAdmin(user));
+      case "adminGetTeam":
+        return sendSuccess(getTeamAdmin(user));
+      case "adminGetGuests":
+        return sendSuccess(getGuestsAdmin(user));
+      case "adminGetGalleryAlbums":
+        return sendSuccess(getGalleryAlbumsAdmin(user));
+      case "adminGetGalleryImages":
+        var albumId = postData.albumId || e.parameter.albumId;
+        if (!albumId) throw new Error("Missing albumId.");
+        return sendSuccess(getGalleryAlbumImagesAdmin(user, albumId));
+      case "adminGetEvents":
+        return sendSuccess(getEventsAdmin(user));
+      case "adminGetSponsors":
+        return sendSuccess(getSponsorsAdmin(user));
+      case "adminGetAnnouncements":
+        return sendSuccess(getAnnouncementsAdmin(user));
+      case "adminGetAuditLogs":
+        return sendSuccess(getAuditLogsController(user));
+        
       default:
-        return sendError("INVALID_ACTION", "Unknown write action: " + action);
+        return sendError("INVALID_ACTION", "Unknown action: " + action);
     }
   } catch(err) {
     return sendError("SERVER_ERROR", err.message);
