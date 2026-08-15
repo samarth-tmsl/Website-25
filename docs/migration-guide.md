@@ -42,6 +42,7 @@ function runMigration() {
   var sponsorFolder = getFolderSafe(FOLDER_IDS.Sponsors, "Sponsors", rootFolder);
   var eventFolder = getFolderSafe(FOLDER_IDS.Events, "Events", rootFolder);
   var guestFolder = getFolderSafe(FOLDER_IDS.Guests, "Guests", rootFolder);
+  var galleryFolder = getFolderSafe(FOLDER_IDS.Gallery, "Gallery", rootFolder);
 
   // 1. Create Academic Years
   var years = [
@@ -213,7 +214,36 @@ function runMigration() {
       "Migration-Script"
     ]);
   });
-  Logger.log("Guests seeded successfully!");
+  Logger.log("Guests seeded.");
+
+  // 6. Seed Gallery Images
+  var galleryImages = [
+    { filename: "gallery_1.webp", img: "/images2/gallery/1.webp", caption: "Cultural Night Performance" },
+    { filename: "gallery_2.webp", img: "/images2/gallery/2.webp", caption: "Coding Contest Winners" },
+    { filename: "gallery_3.webp", img: "/images2/gallery/3.webp", caption: "Robotics Exhibition" },
+    { filename: "gallery_4.webp", img: "/images2/gallery/4.webp", caption: "Campus Decoration" },
+    { filename: "gallery_5.webp", img: "/images2/gallery/5.webp", caption: "Auditorium Opening" }
+  ];
+
+  var gallerySheet = ss.getSheetByName(SHEETS.GALLERY_IMAGES);
+  gallerySheet.clearContents();
+  gallerySheet.appendRow(["id", "albumId", "fileId", "fileName", "caption", "displayOrder", "active", "uploadedAt", "uploadedBy"]);
+  
+  galleryImages.forEach(function(img, index) {
+    var fileId = uploadImageFromUrl(GITHUB_ASSET_BASE + img.img, img.filename, galleryFolder);
+    gallerySheet.appendRow([
+      "IMG_" + (100000 + index),
+      "GENERAL",
+      fileId,
+      img.filename,
+      img.caption,
+      index + 1,
+      "TRUE",
+      new Date().toISOString(),
+      "Migration-Script"
+    ]);
+  });
+  Logger.log("Gallery images seeded successfully!");
 }
 
 /**
