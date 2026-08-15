@@ -70,7 +70,7 @@ function Achievers() {
                 }}
               >
                 {categories.map(cat => (
-                  <button
+                  <span
                     key={cat}
                     onClick={() => setSelectedCategory(cat)}
                     style={{
@@ -86,11 +86,12 @@ function Achievers() {
                       transition: 'all 0.3s ease',
                       boxShadow: selectedCategory === cat 
                         ? '0 4px 15px rgba(92, 39, 254, 0.4)' 
-                        : 'none'
+                        : 'none',
+                      userSelect: 'none'
                     }}
                   >
                     {cat}
-                  </button>
+                  </span>
                 ))}
               </div>
             </div>
@@ -236,7 +237,7 @@ function Achievers() {
             }}
           >
             {/* Close Button */}
-            <button
+            <span
               onClick={handleCloseDetail}
               style={{
                 position: 'absolute',
@@ -247,13 +248,14 @@ function Achievers() {
                 color: 'rgba(255, 255, 255, 0.6)',
                 fontSize: '24px',
                 cursor: 'pointer',
-                transition: 'color 0.2s ease'
+                transition: 'color 0.2s ease',
+                userSelect: 'none'
               }}
               onMouseEnter={(e) => e.currentTarget.style.color = '#ffffff'}
               onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)'}
             >
               &times;
-            </button>
+            </span>
 
             {/* Modal Avatar */}
             <div 
