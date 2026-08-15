@@ -1146,9 +1146,79 @@ function Gallery(props) {
     },
   ];
 
+  const [albums, setAlbums] = useState([]);
+  const [selectedAlbumId, setSelectedAlbumId] = useState("all");
+  const [loading, setLoading] = useState(true);
+
+  // We keep galleryData as static fallback
   useEffect(() => {
-    setDisplayedImages(galleryData);
+    async function loadGallery() {
+      try {
+        setLoading(true);
+        const fetchedAlbums = await api.getGalleryAlbums();
+        setAlbums(fetchedAlbums);
+        
+        if (fetchedAlbums && fetchedAlbums.length > 0) {
+          // Fetch images of all albums or first album
+          const allImages = [];
+          for (let i = 0; i < fetchedAlbums.length; i++) {
+            const imgs = await api.getGalleryImages(fetchedAlbums[i].id);
+            allImages.push(...imgs.map(im => ({
+              id: im.id,
+              img: im.img,
+              alt: im.caption || fetchedAlbums[i].title,
+              albumId: fetchedAlbums[i].id
+            })));
+          }
+          if (allImages.length > 0) {
+            setDisplayedImages(allImages);
+          } else {
+            setDisplayedImages(galleryData);
+          }
+        } else {
+          setDisplayedImages(galleryData);
+        }
+      } catch (err) {
+        console.warn("Failed to load CMS gallery data, falling back to static files.", err);
+        setDisplayedImages(galleryData);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadGallery();
   }, []);
+
+  const handleSelectAlbum = async (albumId) => {
+    setSelectedAlbumId(albumId);
+    try {
+      setLoading(true);
+      if (albumId === "all") {
+        const allImages = [];
+        for (let i = 0; i < albums.length; i++) {
+          const imgs = await api.getGalleryImages(albums[i].id);
+          allImages.push(...imgs.map(im => ({
+            id: im.id,
+            img: im.img,
+            alt: im.caption || albums[i].title,
+            albumId: albums[i].id
+          })));
+        }
+        setDisplayedImages(allImages.length > 0 ? allImages : galleryData);
+      } else {
+        const imgs = await api.getGalleryImages(albumId);
+        const albumTitle = albums.find(a => a.id === albumId)?.title || "Event@Samarth";
+        setDisplayedImages(imgs.map(im => ({
+          id: im.id,
+          img: im.img,
+          alt: im.caption || albumTitle
+        })));
+      }
+    } catch (err) {
+      console.error("Failed to load album images", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="wrapper">
@@ -1163,52 +1233,101 @@ function Gallery(props) {
               </div>
             </div>
 
-            <div className="image1 gallery-container">
-              <LightGallery 
-                plugins={[lgThumbnail, lgZoom]}
-                ref={lightGalleryRef}
-                speed={500}
-                thumbnail={true}
-                download={false}
-                counter={true}
-                closable={true}
-                showZoomInOutIcons={true}
-                actualSize={false}
-                mode="lg-fade"
-                dynamic={true}
-                dynamicEl={displayedImages.map(item => ({
-                  src: item.img,
-                  thumb: item.img,
-                  subHtml: `<h4>${item.alt}</h4>`
-                }))}
-              >
-              </LightGallery>
-              
-              <Masonry
-                breakpointCols={breakpointColumnsObj}
-                className="masonry-grid"
-                columnClassName="masonry-grid_column"
-                enableResizableChildren
-              >
-                {displayedImages.map((item, index) => (
-                  <div 
-                    key={item.id} 
-                    className="gallery-item"
-                    onClick={() => {
-                      if (lightGalleryRef.current) {
-                        lightGalleryRef.current.openGallery(index);
-                      }
+            {/* Album Tabs */}
+            {albums.length > 0 && (
+              <div className="col-12" style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '30px' }}>
+                <button 
+                  className="action-btn"
+                  style={{
+                    padding: '8px 18px',
+                    borderRadius: '20px',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    background: selectedAlbumId === 'all' ? 'var(--accent-gradient, #3b82f6)' : 'rgba(255,255,255,0.05)',
+                    color: '#fff',
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                    transition: 'all 0.3s'
+                  }}
+                  onClick={() => handleSelectAlbum('all')}
+                >
+                  All Albums
+                </button>
+                {albums.map(alb => (
+                  <button
+                    key={alb.id}
+                    className="action-btn"
+                    style={{
+                      padding: '8px 18px',
+                      borderRadius: '20px',
+                      border: '1px solid rgba(255,255,255,0.1)',
+                      background: selectedAlbumId === alb.id ? 'linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)' : 'rgba(255,255,255,0.05)',
+                      color: '#fff',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      transition: 'all 0.3s'
                     }}
+                    onClick={() => handleSelectAlbum(alb.id)}
                   >
-                    <img
-                      alt={item.alt}
-                      src={item.img}
-                      className="gallery-image fade-in"
-                      style={{ marginBottom: "16px", borderRadius: "8px", maxWidth: "100%", height: "auto" }}
-                    />
-                  </div>
+                    {alb.title}
+                  </button>
                 ))}
-              </Masonry>
+              </div>
+            )}
+
+            <div className="image1 gallery-container">
+              {loading ? (
+                <div style={{ display: 'flex', justifyContent: 'center', padding: '60px', width: '100%' }}>
+                  <div className="spinner" style={{ border: '4px solid rgba(255,255,255,0.1)', width: '36px', height: '36px', borderRadius: '50%', borderLeftColor: '#3b82f6', animation: 'spin 1s linear infinite' }}></div>
+                </div>
+              ) : (
+                <>
+                  <LightGallery 
+                    plugins={[lgThumbnail, lgZoom]}
+                    ref={lightGalleryRef}
+                    speed={500}
+                    thumbnail={true}
+                    download={false}
+                    counter={true}
+                    closable={true}
+                    showZoomInOutIcons={true}
+                    actualSize={false}
+                    mode="lg-fade"
+                    dynamic={true}
+                    dynamicEl={displayedImages.map(item => ({
+                      src: item.img,
+                      thumb: item.img,
+                      subHtml: `<h4>${item.alt}</h4>`
+                    }))}
+                  >
+                  </LightGallery>
+                  
+                  <Masonry
+                    breakpointCols={breakpointColumnsObj}
+                    className="masonry-grid"
+                    columnClassName="masonry-grid_column"
+                    enableResizableChildren
+                  >
+                    {displayedImages.map((item, index) => (
+                      <div 
+                        key={item.id || index} 
+                        className="gallery-item"
+                        onClick={() => {
+                          if (lightGalleryRef.current) {
+                            lightGalleryRef.current.openGallery(index);
+                          }
+                        }}
+                      >
+                        <img
+                          alt={item.alt}
+                          src={item.img}
+                          className="gallery-image fade-in"
+                          style={{ marginBottom: "16px", borderRadius: "8px", maxWidth: "100%", height: "auto" }}
+                        />
+                      </div>
+                    ))}
+                  </Masonry>
+                </>
+              )}
             </div>
           </div>
         </div>
