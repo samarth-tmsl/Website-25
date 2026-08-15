@@ -1,4 +1,8 @@
+packages:
+  - '.'
+  - 'admin'
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true
   swiper: true
+
