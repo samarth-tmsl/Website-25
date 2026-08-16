@@ -1,6 +1,8 @@
 import React from 'react';
 import PageTitle from '../components/pagetitle/PageTitle_Explore';
 import dataAchievers from '../assets/fake-data/data-achievers';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 function Achievers() {
   return (
@@ -93,6 +95,33 @@ function Achievers() {
                     }}>
                       {achiever.milestone}
                     </p>
+
+                    {achiever.linkedin && (
+                      <a 
+                        href={achiever.linkedin} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        style={{
+                          marginTop: '12px',
+                          color: '#0077b5',
+                          fontSize: '20px',
+                          transition: 'all 0.3s ease',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = '#DEC7FF';
+                          e.currentTarget.style.transform = 'scale(1.15)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color = '#0077b5';
+                          e.currentTarget.style.transform = 'scale(1)';
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faLinkedin} />
+                      </a>
+                    )}
                   </div>
                 </div>
               );
