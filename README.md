@@ -44,7 +44,7 @@ Samarth is a modern, student-driven platform for study resources, events, and co
 
 - [Facebook](https://www.facebook.com/SamarthTMSL)
 - [LinkedIn](https://www.linkedin.com/company/samarthtmsl/mycompany/)
-- [YouTube](https://www.youtube.com/@samarth_tmsl_official)
+- [YouTube](https://www.youtube.com/@samarthtmsl)
 - Email: samarthtmsl@gmail.com
 
 ---

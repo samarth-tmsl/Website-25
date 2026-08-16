@@ -116,7 +116,7 @@ function PageTitle(props) {
                       </a>
                     </li>
                     <li>
-                      <a href="https://www.youtube.com/@samarth_tmsl_official" target='_blank'>
+                      <a href="https://www.youtube.com/@samarthtmsl" target='_blank'>
                         <svg
                           width="18"
                           height="12"
