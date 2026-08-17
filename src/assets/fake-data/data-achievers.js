@@ -7,6 +7,8 @@ import uttkarshRanjan from '/images2/achievers/5.webp';
 import swapnilBera from '/images2/achievers/6.webp';
 import rahulChakrabarty from '/images2/achievers/7.webp';
 import indranilPatra from '/images2/achievers/8.webp';
+import ranjeetSuman from '/images2/achievers/9.webp';
+import tuhinSubhraSannigrahi from '/images2/achievers/10.webp';
 
 const dataAchievers = [
   {
@@ -56,6 +58,18 @@ const dataAchievers = [
     milestone: 'GATE DA 170',
     img: indranilPatra,
     linkedin: 'https://www.linkedin.com/'
+  },
+  {
+    name: 'Ranjeet Suman',
+    milestone: '70th BPSC (2022)',
+    img: ranjeetSuman,
+    linkedin: 'https://www.linkedin.com/'
+  },
+  {
+    name: 'Tuhin Subhra Sannigrahi',
+    milestone: 'AIR 600 GATE CSE (2026)',
+    img: tuhinSubhraSannigrahi,
+    linkedin: 'https://www.linkedin.com/in/tuhin-subhra-sannigrahi-856b46265'
   }
 
 ];
