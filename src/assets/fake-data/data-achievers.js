@@ -61,7 +61,7 @@ const dataAchievers = [
   },
   {
     name: 'Ranjeet Suman',
-    milestone: '70th BPSC (2022)',
+    milestone: '70th BPSC (2026)',
     img: ranjeetSuman,
     linkedin: 'https://www.linkedin.com/'
   },
