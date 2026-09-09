@@ -80,8 +80,9 @@ function Contact(props) {
                                                 </defs>
                                             </svg>
                                             <div className='d-flex flex-column'>
-                                                <p>+91 70617 51339</p>
-                                            <p>+91 87970 77633</p>
+                                                <p>+91 98314 92756</p>
+                                            <p>+91 6291 687697</p>
+                                            <p>+91 95083 19353</p>
                                             </div>
                                             
                                                 
