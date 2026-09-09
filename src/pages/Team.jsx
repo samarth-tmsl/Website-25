@@ -81,8 +81,9 @@ function Team(props) {
             ) : (
                 <>
                     <Team2 data={faculty} />
-                    <Team3 data={heads} />
                     <Team4 data={coHeads} />
+                    {/* Previous Heads section disabled */}
+                    {/* <Team3 data={heads} /> */}
                 </>
             )}
             

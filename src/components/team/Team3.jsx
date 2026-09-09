@@ -62,71 +62,8 @@ function Team3(props) {
   };
 
   return (
-    <section className="team s2">
-      <div className="shape right"></div>
-      <img src={line} alt="" className="img-line" />
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-12">
-            <div className="block-text center">
-              <h6 className="sub-heading">
-                <span>STUDENT COMMITTEE</span>
-              </h6>
-              <h3 className="heading wow" data-splitting>
-                Heads
-              </h3>
-            </div>
-          </div>
-
-          <Swiper
-            ref={swiperRef}
-            spaceBetween={20}
-            slidesPerView={slidesPerView} 
-            centeredSlides={true}
-            loop={true}
-            autoplay={{
-              delay: 2000, 
-              disableOnInteraction: false,
-            }}
-            effect={'coverflow'}
-            grabCursor={true}
-            pagination={{ clickable: true }}
-            onSwiper={setSwiper}
-          >
-            {data.map((idx) => (
-              <SwiperSlide key={idx.id} className="col-xl-3 col-md-6">
-                <div className="team-box">
-                  <div className="image">
-                    <Link to="/team">
-                      <img src={idx.img} alt="Cyfonii" />
-                    </Link>
-
-                    {/* <ul className="list-social">
-                      <li>
-                        <Link to="#" onClick={(event) => handleLinkedInClick(event, idx.links)}>
-                          <img src={newLinkedInIcon} alt="LinkedIn" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="#" onClick={(event) => handleGitHubClick(event, idx.links)}>
-                          <img src={newGitHubIcon} alt="GitHub" />
-                        </Link>
-                      </li>
-                    </ul> */}
-                  </div>
-                  <div className="content">
-                    <Link to="/team" className="h5 name">
-                      {idx.name}
-                    </Link>
-                    <p className="position">{idx.position}</p>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      </div>
-    </section>
+    /* Previous Heads section disabled */
+    null
   );
 }
 

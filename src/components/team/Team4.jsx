@@ -71,7 +71,7 @@ function Team4(props) {
           <div className="col-12">
             <div className="block-text center">
               <h3 className="heading wow" data-splitting>
-                Co-Heads
+                Heads
               </h3>
             </div>
           </div>
