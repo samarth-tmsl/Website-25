@@ -70,6 +70,9 @@ function Team4(props) {
         <div className="row justify-content-center">
           <div className="col-12">
             <div className="block-text center">
+              <h6 className="sub-heading">
+                <span>STUDENT COMMITTEE</span>
+              </h6>
               <h3 className="heading wow" data-splitting>
                 Heads
               </h3>

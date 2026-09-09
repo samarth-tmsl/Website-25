@@ -11,6 +11,9 @@ import dataTeam2 from '../assets/fake-data/dataTeam2';
 import Team4 from '../components/team/Team4';
 import dataTeam3 from '../assets/fake-data/dataTeam3';
 
+import Team5 from '../components/team/Team5';
+import dataTeam5 from '../assets/fake-data/dataTeam5';
+
 import { api } from '../services/api';
 
 function Team(props) {
@@ -82,6 +85,7 @@ function Team(props) {
                 <>
                     <Team2 data={faculty} />
                     <Team4 data={coHeads} />
+                    <Team5 data={dataTeam5} />
                     {/* Previous Heads section disabled */}
                     {/* <Team3 data={heads} /> */}
                 </>

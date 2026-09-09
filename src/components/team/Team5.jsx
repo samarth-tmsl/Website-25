@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link } from 'react-router-dom';
 import 'swiper/scss';
 import 'swiper/scss/navigation';
 import 'swiper/scss/pagination';
-import { faLinkedin, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons';
 
 Team5.propTypes = {
     data: PropTypes.array
@@ -18,8 +16,8 @@ function Team5(props) {
 
     const [dataBlock] = useState(
         {
-            subheading: 'Development Team',
-            heading: '',
+            subheading: 'STUDENT COMMITTEE',
+            heading: 'Co-Heads',
         }
     )
     const [swiper, setSwiper] = useState(null);
@@ -109,17 +107,6 @@ function Team5(props) {
                                                         {idx.position}
                                                     </p>
 
-                                                    <ul className="list-social">
-                                                        <li><a href={idx.links.link1} target='_blank'>
-                                                            <FontAwesomeIcon icon={faLinkedin} />
-                                                        </a></li>
-                                                        <li><a href={idx.links.link2}>
-                                                            <FontAwesomeIcon icon={faGithub} target='_blank' />
-                                                        </a></li>
-                                                        {/* <li><Link to="#">
-                                                            <FontAwesomeIcon icon={faTwitter} />
-                                                        </Link></li> */}
-                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
