@@ -5,17 +5,24 @@ import { Link } from 'react-router-dom';
 import img from '/images2/new/whitelogo.webp';
 
 Safalya26.propTypes = {
-    data: PropTypes.array
+    data: PropTypes.array,
+    heading: PropTypes.string,
+    message: PropTypes.string,
+    subheading: PropTypes.string,
 };
 
 function Safalya26(props) {
 
-    const {data = []} = props;
+    const {
+        data = [],
+        heading = 'Safalya \'26',
+        message,
+        subheading = 'Annual Fest Of Samarth',
+    } = props;
 
     const [dataBlock] = useState(
         {
-            // subheading: 'Annual Fest Of Samarth',
-            heading: 'Safalya \'26',
+            heading,
             
         }
     )
@@ -38,8 +45,9 @@ function Safalya26(props) {
                     <div className="row">
                         <div className="col-12">
                             <div className="block-text center">
-                                {/* <h6 className="sub-heading mt-5"><span>{dataBlock.subheading}</span></h6> */}
+                                {subheading && <h6 className="sub-heading mt-5"><span>{subheading}</span></h6>}
                                 <h3 className="heading pd p-5">{dataBlock.heading}</h3> 
+                                {message && <p>{message}</p>}
                             </div>
                             
                         </div>
@@ -93,10 +101,8 @@ function Safalya26(props) {
                                         </Link>
                                     </div>
                                     <div className="button-place-bid" style={{ width: '100%', display: 'flex', gap: '10px' }}>
-                                        <a 
-                                            href={item.link} 
-                                            target="_blank" 
-                                            rel="noopener noreferrer"
+                                        <span
+                                            aria-disabled="true"
                                             className="action-btn"
                                             style={{ 
                                                 width: '50%', 
@@ -104,15 +110,16 @@ function Safalya26(props) {
                                                 background: 'transparent',
                                                 border: 'none',
                                                 padding: '0',
-                                                backdropFilter: 'none'
+                                                backdropFilter: 'none',
+                                                opacity: 0.5,
+                                                cursor: 'not-allowed',
+                                                pointerEvents: 'none'
                                             }}
                                         >
                                             <span style={{ whiteSpace: 'nowrap' }}>Register Now</span>
-                                        </a>
-                                        <a 
-                                            href={item.rulebook} 
-                                            target="_blank" 
-                                            rel="noopener noreferrer"
+                                        </span>
+                                        <span
+                                            aria-disabled="true"
                                             className="action-btn"
                                             style={{ 
                                                 width: '50%', 
@@ -121,11 +128,14 @@ function Safalya26(props) {
                                                 backgroundColor: '#ffd700',
                                                 border: '1px solid #ffd700',
                                                 padding: '0',
-                                                backdropFilter: 'none'
+                                                backdropFilter: 'none',
+                                                opacity: 0.5,
+                                                cursor: 'not-allowed',
+                                                pointerEvents: 'none'
                                             }}
                                         >
                                             <span style={{ color: '#000', background: '#ffd700', backgroundColor: '#ffd700', whiteSpace: 'nowrap' }}>Rulebook</span>
-                                        </a>
+                                        </span>
                                     </div>
                                 </div>
                             </div>

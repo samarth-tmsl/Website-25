@@ -46,7 +46,7 @@ const dataItem = [
     img: img6,
     title: 'SHOT-A-VID',
    
-    ownedBy: 'PRATIBIMB-Photography Wing',
+    ownedBy: 'PRATIBIMB-Media Wing',
   },
   {
     id: 6,

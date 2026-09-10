@@ -40,7 +40,7 @@ function About6(props) {
 
     const [dataBlock] = useState(
         {
-            subheading: 'Photography Wing',
+            subheading: 'Media Wing',
             heading: 'Pratibimb',
             desc1: '"In every click, time stands still, and emotions echo forever."' ,
             desc2 :'Pratibimb, the guardian of ephemeral beauty. Our emblem, a lens, transforms transient moments into eternal memories, each photograph a portal to traverse the realm of emotions frozen in time.'

@@ -82,6 +82,16 @@ function Events(props) {
         </div>
       ) : hasDynamicData ? (
         <>
+          {/* Safalya'27 */}
+          <Safalya26
+            data={[]}
+            heading="Safalya '27"
+            message="New events are loading..."
+          />
+
+          {/* Safalya'26 */}
+          <Safalya26 data={dataSafalya26} />
+
           {/* Dynamic Upcoming Events Section */}
           {upcomingEvents.length > 0 && (
             <section className="tf-section project s2">
@@ -113,10 +123,18 @@ function Events(props) {
               </div>
             </div>
           </section>
+
         </>
       ) : (
         // Static Fallbacks
         <>
+          {/* Safalya'27 */}
+          <Safalya26
+            data={[]}
+            heading="Safalya '27"
+            message="New events are loading..."
+          />
+
           {/* Safalya'26 */}
           <Safalya26 data={dataSafalya26} />
 

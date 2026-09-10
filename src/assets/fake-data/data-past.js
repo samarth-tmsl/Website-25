@@ -22,7 +22,7 @@ const dataOfPast = [
     id: 1,
     img: img10,
     title: 'PHOTOGRAPHY',
-    ownedBy: 'PRATIBIMB-Photography Wing',
+    ownedBy: 'PRATIBIMB-Media Wing',
     link: 'https://docs.google.com/forms/d/e/1FAIpQLSeACC9K2H8mdjjOJB4b1-E42kmpf-zi-eUONGb5s3o9eqed3g/viewform?usp=sf_link',
   },
   {
@@ -57,7 +57,7 @@ const dataOfPast = [
     id: 6,
     img: img4,
     title: 'PHOTOGRAPHY',
-    ownedBy: 'PRATIBIMB-Photography Wing',
+    ownedBy: 'PRATIBIMB-Media Wing',
     link: 'https://forms.gle/Pf8Mtivm1CW91hyS9',
   },
   {
