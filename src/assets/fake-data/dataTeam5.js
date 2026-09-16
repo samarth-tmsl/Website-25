@@ -105,7 +105,7 @@ const dataTeam5 = [
   {
     id: 8,
     img: img8,
-    name: 'Prathamesh',
+    name: 'Prathamesh Jha',
     position: 'Sponsor Co-Head',
     links: {
       link1: null,
