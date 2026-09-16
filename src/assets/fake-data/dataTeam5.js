@@ -56,7 +56,7 @@ const dataTeam5 = [
     id: 3,
     img: img3,
     name: 'Subhodeep Pal',
-    position: 'Ignite Co-Head',
+    position: 'Anveshan & Ignite Co-Head ',
     links: {
       link1: null,
       link2: null
@@ -112,16 +112,16 @@ const dataTeam5 = [
       link2: null
     }
   },
-  {
-    id: 9,
-    img: img3,
-    name: 'Subhodeep Pal',
-    position: 'Anveshan Co-Head',
-    links: {
-      link1: null,
-      link2: null
-    }
-  },
+  // {
+  //   id: 9,
+  //   img: img3,
+  //   name: 'Subhodeep Pal',
+  //   position: 'Anveshan Co-Head',
+  //   links: {
+  //     link1: null,
+  //     link2: null
+  //   }
+  // },
   {
     id: 10,
     img: img10,
