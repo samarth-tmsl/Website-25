@@ -101,7 +101,7 @@ function Team5(props) {
                                                         <img
                                                             src={idx.img}
                                                             alt="Cyfonii"
-                                                            style={idx.id === 8 ? { objectPosition: 'center top' } : undefined}
+                                                            style={idx.id === 8 || idx.id === 13 ? { objectPosition: 'center top' } : undefined}
                                                         />
                                                     </Link>
                                                 </div>
