@@ -114,7 +114,7 @@ const dataTeam5 = [
   },
   {
     id: 9,
-    img: img9,
+    img: img3,
     name: 'Subhodeep Pal',
     position: 'Anveshan Co-Head',
     links: {
