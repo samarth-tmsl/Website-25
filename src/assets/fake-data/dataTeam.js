@@ -2,89 +2,93 @@
 import imgRituparna from '/images2/Team/Rituparna.webp'
 import imgGourav from '/images2/Team/Gourav.webp'
 import imgHemant from '/images2/Team/teacher4.webp'
-import imgDipen from '/images2/Team/teacher5.webp'
 import imgAyesha from '/images2/Team/teacher1.webp'
-// Placeholder avatar for teachers without photos
 import avatarPlaceholder from '/images2/Team/avatar.png'
 
 const dataTeam = [
     {
         id: 1,
-        img: imgHemant,
-        name: 'Prof. Hemant Agarwal',
-        position: 'Assistant Professor, Dept. of EE'
+        img: imgRituparna,
+        name: 'Prof. Rhituparna Ganguly',
+        position: 'Convenor'
     },
     {
         id: 2,
-        img: avatarPlaceholder,
-        name: 'Prof. Abhijit Dey',
-        position: 'Assistant Professor, Dept. of ECE'
+        img: imgAyesha,
+        name: 'Prof. Ayesha Sultana',
+        position: 'Co-Convenor'
     },
     {
         id: 3,
         img: avatarPlaceholder,
         name: 'Prof. Anindita Sarkar',
-        position: 'Assistant Professor, Dept. of BHM'
+        position: 'Co-Convenor'
     },
     {
         id: 4,
-        img: imgAyesha,
-        name: 'Prof. Ayesha Sultana',
-        position: 'Assistant Professor, Dept. of ECE'
+        img: imgHemant,
+        name: 'Prof. Hemant Agarwal',
+        position: 'Co-Convenor'
     },
     {
         id: 5,
         img: avatarPlaceholder,
-        name: 'Dr. Tamasmita Basu',
-        position: 'Assistant Professor, Dept. of BHM'
+        name: 'Prof. Abhijit Dey',
+        position: 'Active Member'
     },
     {
         id: 6,
         img: avatarPlaceholder,
-        name: 'Prof. Depanwita Debnath',
-        position: 'Assistant Professor, Dept. of ECE'
+        name: 'Dr. Tamasmita Basu',
+        position: 'Active Member'
     },
     {
         id: 7,
         img: avatarPlaceholder,
-        name: 'Dr. Madhurima Kundu',
-        position: 'Assistant Professor, Dept. of BHM'
+        name: 'Prof. Depanwita Debnath',
+        position: 'Active Member'
     },
     {
         id: 8,
         img: avatarPlaceholder,
-        name: 'Prof. Ankita',
-        position: 'Assistant Professor, Dept. of BHM'
+        name: 'Dr. Madhurima Kundu',
+        position: 'Active Member'
     },
     {
         id: 9,
         img: avatarPlaceholder,
-        name: 'Prof. Rupa Biswas',
-        position: 'Assistant Professor, Dept. of BMS'
+        name: 'Prof. Ankita Basak',
+        position: 'Active Member'
     },
     {
         id: 10,
         img: avatarPlaceholder,
-        name: 'Prof. Suman Ghosh',
-        position: 'Assistant Professor, Dept. of EE'
+        name: 'Prof. Rupa Biswas',
+        position: 'Active Member'
     },
     {
         id: 11,
-        img: imgDipen,
-        name: 'Dr. Dipen Ganguly',
-        position: 'Assistant Professor, Dept. of Maths'
+        img: avatarPlaceholder,
+        name: 'Prof. Suman Ghosh',
+        position: 'Active Member'
     },
     {
         id: 12,
-        img: imgRituparna,
-        name: 'Prof. Rituparna Ganguly',
-        position: 'Assistant Professor, Dept. of English'
+        img: imgGourav,
+        name: 'Prof. Gourav Ghosh',
+        position: 'Active Member'
     },
     {
         id: 13,
-        img: imgGourav,
-        name: 'Prof. Gourav Ghosh',
-        position: 'Assistant Professor, Dept. of CE'
+        img: avatarPlaceholder,
+        name: 'Dr. Soumita Das',
+        position: 'Active Member'
+    },
+    {
+        id: 14,
+        img: avatarPlaceholder,
+        name: 'Prof. Dalia Roy',
+        position: 'Active Member'
     },
 ]
 
