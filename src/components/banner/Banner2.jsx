@@ -24,8 +24,8 @@ function Banner2(props) {
     const [dataBlock] = useState(
         {
             subheading: 'Samarth',
-            heading: 'Empowering Youth For Future',
-            desc: 'SAMARTH, the educational society of Techno Main Salt Lake, founded in 2019. SAMARTH literally means Competent, strong and powerful.'
+            heading: 'Empowering Youth For The Future',
+            desc: 'SAMARTH is the educational society of Techno Main Salt Lake, founded in 2019. SAMARTH literally means Competent, strong and powerful.'
         }
     )
     return (
