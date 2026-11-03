@@ -20,24 +20,17 @@ Below is a complete mapping of paths to React Page Components:
 | `/team` | `Team` | Technical heads, core team members, and contributors profile grid. | `dataTeam2.js`, `dataTeam3.js` |
 | `/About` | `About` | Details of Samarth's mission, values, operations, and structure. | Static layout |
 | `/contact` | `Contact` | Contact form with input validation, Google Maps iframe embed, and email/social handles. | Contact configuration |
-| `/Resources` | `Exam` | Portal for competitive exam guides (GATE, UPSC, SSC, etc.). | `data-gate.js`, `data-ssc.js`, `data-cat.js` |
+| `/Resources` | `Exam` | Exam detail page with overviews, career options, and preparation links for GATE, CAT, SSC, and UPSC. | `exam-resources.js` |
 | `/Aspirants` | `Aspirants` | Helper portal for university entrants and study aspirants. | `dataForAspirants/` |
-| `/study` | `Study` | Unified page combining Study materials, competitive exam portals, and guides. | Consolidated static databases |
+| `/study` | Redirect | Redirects to `/Resources` for existing links. | N/A |
 | `/results` | `Results` | Student achievements, exam scores (GATE qualifiers), and highlights. | `data-results.js` |
 
 ---
 
 ## ⚡ Main Feature Modules
 
-### 1. Unified Study & Exam Resources (`/study`)
-The **[Study](../src/pages/Study.jsx)** component is a hub for student academic resources. It includes:
-* **Interactive Tabs**: Users switch between GATE, CAT, UPSC-CSE, UPSC-ESE, and SSC-CGL tabs. The active tab dynamically renders custom resource components (e.g. `<Gate data={dataGate} />`).
-* **Study Material Grid**: Contains columns for:
-  * **Organizer**: Study PDFs, course planners.
-  * **PYQs**: Links to download previous year questions for multiple semesters.
-  * **Playlists**: Curated YouTube playlist series.
-  * **Channels**: Recommended YouTube education channels.
-* **Aspirants Section**: Quick links to official website resources, guidance channels, and exam syllabus portals.
+### 1. Exam Resources (`/Resources`)
+The **[Exam](../src/pages/Exam.jsx)** page presents exam-specific overviews, career options, and preparation links. Users can select from six exams; each has links for previous-year questions, study resources, syllabus, and a preparation roadmap. The former `/study` route redirects here.
 
 ### 2. Event Showcase (`/events`)
 The **[Events](../src/pages/Events.jsx)** module displays:

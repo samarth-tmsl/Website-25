@@ -8,9 +8,9 @@ import Team from "./Team";
 import About from"./About";
 import Exam from"./Exam";
 import Aspirants from "./Aspirants";
-import Study from "./Study";
 import Results from "./Results";
 import Achievers from "./Achievers";
+import { Navigate } from "react-router-dom";
 
 
 const routes = [
@@ -24,7 +24,7 @@ const routes = [
   { path: '/contact', component: <Contact />},
   { path : '/Resources',component: <Exam />},
   { path : '/Aspirants',component: <Aspirants />},
-  { path : '/study',component: <Study />},
+  { path : '/study',component: <Navigate to="/Resources" replace />},
   { path : '/results',component: <Results />},
   { path: '/achievers', component: <Achievers />},
   

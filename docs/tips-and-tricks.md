@@ -133,4 +133,4 @@ Before executing a deployment or merging a pull request, run through this quick 
 - [ ] **AOS Animations**: Scroll through the homepage to verify that Animate on Scroll (AOS) fades and movements load smoothly and do not block text visibility.
 - [ ] **LightBox Sliders**: Go to the `/gallery` page, select any category, and click on an image. Ensure the lightbox slides open, swipe works on touch screens, and the close button is clickable.
 - [ ] **Form Validations**: Fill out the `/contact` form with an invalid email address and ensure inline input warnings fire correctly.
-- [ ] **Android Hardware Back-Button**: Launch the built app on an Android device. Navigate between `/events`, `/study`, and `/team`. Press the device's physical back button. Ensure it returns to the previously loaded route instead of terminating/minimizing the application.
+- [ ] **Android Hardware Back-Button**: Launch the built app on an Android device. Navigate between `/events`, `/Resources`, and `/team`. Press the device's physical back button. Ensure it returns to the previously loaded route instead of terminating/minimizing the application.

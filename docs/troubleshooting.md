@@ -40,8 +40,8 @@ This guide compiles common issues, error messages, and resolutions encountered w
 ## ☁️ Vercel Deployment & SPA Routing
 
 ### 1. 404 Error on Direct Route Access or Page Refresh
-* **Symptom**: Direct visits to paths like `/events` or refreshing the page on `/study` results in a Vercel 404 page, but clicking navigation links inside the app works perfectly.
-* **Cause**: This is a classic single-page application (SPA) routing issue. Because React handles routing client-side via `react-router-dom`, Vercel attempts to find physical directories or files at `/events/index.html` or `/study/index.html` on the server.
+* **Symptom**: Direct visits to paths like `/events` or `/Resources` result in a Vercel 404 page, but clicking navigation links inside the app works perfectly.
+* **Cause**: This is a classic single-page application (SPA) routing issue. Because React handles routing client-side via `react-router-dom`, Vercel attempts to find physical directories or files at `/events/index.html` or `/Resources/index.html` on the server.
 * **Resolution**:
   Ensure the root contains a **[vercel.json](../vercel.json)** file that redirects all requests to `index.html`:
   ```json

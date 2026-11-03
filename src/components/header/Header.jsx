@@ -75,8 +75,7 @@ const Header = () => {
                         key={idx}
                         onClick={() => handleDropdown(idx)}
                         className={`menu-item ${data.namesub ? "menu-item-has-children" : ""
-                          } ${activeIndex === idx ? "active" : ""}`}
-                      id={`${data.name==='Study Material' ? 'study-relative':''}`}>
+                          } ${activeIndex === idx ? "active" : ""}`}>
                         <div className={`explore ${data.name === "Explore" ? 'flex-column':''}`}>
                           {data.name === "Explore" ? (
                             <div className="d-flex flex-row">
