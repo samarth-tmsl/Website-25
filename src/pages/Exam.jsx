@@ -5,7 +5,7 @@ import PageTitle from '../components/pagetitle/PageTitle_Explore';
 const Exam = () => {
   return (
     <div className="wrapper">
-      <PageTitle title="NIRMAAN Prepare Smarter. Start for Free." desc="Explore Our Exam Preparation Resources Here" />
+      <PageTitle title="NIRMAAN" desc="Prepare Smarter. Start for Free." />
       <ExamResourceLibrary />
     </div>
   );
