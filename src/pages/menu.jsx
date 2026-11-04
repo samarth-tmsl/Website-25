@@ -7,8 +7,8 @@ const menus = [
 
     {
         id: 7,
-        name: 'Resources',
-        links: '/Resources',
+        name: 'Study',
+        links: '/study',
         // isNew: 'true',
     },
     

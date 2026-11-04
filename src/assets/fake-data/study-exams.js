@@ -74,17 +74,7 @@ Follow a structured plan for syllabus coverage, practice, and revision.
 
 **Button:** View Roadmap → {{UPSC\_ROADMAP\_URL}}
 
-Review the examination structure, syllabus, and preparation strategy.
-
-**Button:** Read General Guide → {{UPSC\_GUIDE\_URL}}
-
-# 10. Doubt Solving & Chat Support
-
-You don't have to prepare alone. Join the SAMARTH WhatsApp community to discuss study-related doubts, exchange ideas, and connect with fellow aspirants.
-
-**Button:** Join the WhatsApp Community → {{NIRMAAN\_WHATSAPP\_FORM\_URL}}
-
-The Google Form provides the entry point to the WhatsApp community. It is not a form for submitting individual doubts.`,
+`,
   },
   {
     name: "SSC CGL",
@@ -164,17 +154,7 @@ Follow a structured plan for syllabus coverage, practice, and revision.
 
 Button: View Roadmap → {{SSC\_CGL\_ROADMAP\_URL}}
 
-Review the examination structure, syllabus, and preparation strategy.
-
-Button: Read General Guide → {{SSC\_CGL\_GUIDE\_URL}}
-
-# 10. Doubt Solving & Chat Support
-
-You don't have to prepare alone. Join the SAMARTH WhatsApp community to discuss SSC CGL preparation doubts, exchange ideas, and connect with fellow aspirants.
-
-Button: Join the WhatsApp Community → {{NIRMAAN\_WHATSAPP\_FORM\_URL}}
-
-The Google Form provides the entry point to the WhatsApp community; it is not a form for submitting individual doubts.`,
+`,
   },
   {
     name: "CAT",
@@ -253,17 +233,7 @@ Follow a structured plan for syllabus coverage, practice, and revision.
 
 **Button:** View Roadmap → {{CAT\_ROADMAP\_URL}}
 
-Review the examination structure, syllabus, and preparation strategy.
-
-**Button:** Read General Guide → {{CAT\_GUIDE\_URL}}
-
-# 10. Doubt Solving & Chat Support
-
-You don't have to prepare alone. Join the SAMARTH WhatsApp community to discuss study-related doubts, exchange ideas, and connect with fellow aspirants.
-
-**Button:** Join the WhatsApp Community → {{CAT\_WHATSAPP\_FORM\_URL}}
-
-The Google Form provides the entry point to the WhatsApp community. It is not a form for submitting individual doubts.`,
+`,
   },
   {
     name: "GATE CS/IT",
@@ -343,17 +313,7 @@ Follow a structured plan for syllabus coverage, practice, and revision.
 
 **Button:** View Roadmap → {{GATE\_CS\_IT\_ROADMAP\_URL}}
 
-Review the examination structure, syllabus, and preparation strategy.
-
-**Button:** Read General Guide → {{GATE\_CS\_IT\_GUIDE\_URL}}
-
-# 10. Doubt Solving & Chat Support
-
-You don't have to prepare alone. Join the SAMARTH WhatsApp community to discuss study-related doubts, exchange ideas, and connect with fellow aspirants.
-
-**Button:** Join the WhatsApp Community → {{GATE\_CS\_IT\_WHATSAPP\_FORM\_URL}}
-
-The Google Form provides the entry point to the WhatsApp community. It is not a form for submitting individual doubts.`,
+`,
   },
   {
     name: "GATE ECE",
@@ -433,17 +393,7 @@ Follow a structured plan for syllabus coverage, practice, and revision.
 
 **Button:** View Roadmap → {{GATE\_ECE\_ROADMAP\_URL}}
 
-Review the examination structure, syllabus, and preparation strategy.
-
-**Button:** Read General Guide → {{GATE\_ECE\_GUIDE\_URL}}
-
-# 10. Doubt Solving & Chat Support
-
-You don't have to prepare alone. Join the SAMARTH WhatsApp community to discuss study-related doubts, exchange ideas, and connect with fellow aspirants.
-
-**Button:** Join the WhatsApp Community → {{GATE\_ECE\_WHATSAPP\_FORM\_URL}}
-
-The Google Form provides the entry point to the WhatsApp community. It is not a form for submitting individual doubts.`,
+`,
   },
   {
     name: "GATE EE",
@@ -522,17 +472,7 @@ Follow a structured plan for syllabus coverage, practice, and revision.
 
 **Button:** View Roadmap → {{GATE\_EE\_ROADMAP\_URL}}
 
-Review the examination structure, syllabus, and preparation strategy.
-
-**Button:** Read General Guide → {{GATE\_EE\_GUIDE\_URL}}
-
-# 10. Doubt Solving & Chat Support
-
-You don't have to prepare alone. Join the SAMARTH WhatsApp community to discuss study-related doubts, exchange ideas, and connect with fellow aspirants.
-
-**Button:** Join the WhatsApp Community → {{NIRMAAN\_WHATSAPP\_FORM\_URL}}
-
-The Google Form provides the entry point to the WhatsApp community. It is not a form for submitting individual doubts.`,
+`,
   }
 ];
 
