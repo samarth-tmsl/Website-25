@@ -1,115 +1,249 @@
-import React, { useState } from 'react';
-import { FiArrowUpRight, FiBookOpen, FiFileText, FiFolder, FiMap } from 'react-icons/fi';
+import React, { useEffect, useRef, useState } from 'react';
+import { FiArrowUpRight, FiBookOpen, FiX } from 'react-icons/fi';
 import examResources from '../../assets/fake-data/exam-resources';
+import studyExams from '../../assets/fake-data/study-exams';
 import './ExamResourceLibrary.scss';
 
-const resourceCategories = [
-  { key: 'pyq', title: 'Previous-Year Questions', detail: 'Practice past questions and get familiar with question patterns.', Icon: FiFileText },
-  { key: 'materials', title: 'Study Resources', detail: 'Browse curated study materials and notes for your preparation.', Icon: FiFolder },
-  { key: 'syllabus', title: 'Syllabus', detail: 'Review exam topics and plan your subject coverage.', Icon: FiBookOpen },
-  { key: 'roadmap', title: 'Preparation Roadmap', detail: 'Follow a structured plan for practice and revision.', Icon: FiMap },
-];
+const resourceLinks = Object.fromEntries(
+  examResources.map(({ name, resources }) => [name, resources]),
+);
 
-const preparationHighlights = [
-  {
-    title: 'Exam Structure',
-    detail: 'Understand the stages and format of your chosen examination.',
-  },
-  {
-    title: 'Eligibility',
-    detail: 'Check the latest official notification for eligibility requirements.',
-  },
-  {
-    title: 'Subject Coverage',
-    detail: 'Use the syllabus to identify topics and organise your study plan.',
-  },
-  {
-    title: 'Paper Practice',
-    detail: 'Work through previous-year questions to build familiarity.',
-  },
-];
+function renderInline(text) {
+  return text.replace(/\\_/g, '_').split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g).map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={index}>{part.slice(2, -2)}</strong>;
+    }
+
+    if (part.startsWith('*') && part.endsWith('*')) {
+      return <em key={index}>{part.slice(1, -1)}</em>;
+    }
+
+    return part;
+  });
+}
+
+function getActionResource(label) {
+  if (/syllabus/i.test(label)) return 'syllabus';
+  if (/resources/i.test(label)) return 'materials';
+  if (/PYQs/i.test(label)) return 'pyq';
+  if (/roadmap/i.test(label)) return 'roadmap';
+  return null;
+}
+
+function renderExamContent(markdown, resources) {
+  const lines = markdown.replace(/\\_/g, '_').split('\n');
+  const blocks = [];
+
+  for (let index = 0; index < lines.length;) {
+    const line = lines[index].trim();
+
+    if (!line || /^\|\s*-+\s*\|$/.test(line)) {
+      index += 1;
+      continue;
+    }
+
+    const heading = line.match(/^#\s+(.+)$/);
+    if (heading) {
+      blocks.push({ type: 'heading', text: heading[1] });
+      index += 1;
+      continue;
+    }
+
+    const tagline = line.match(/^\|\s*\*(.+)\*\s*\|$/);
+    if (tagline) {
+      blocks.push({ type: 'tagline', text: tagline[1] });
+      index += 1;
+      continue;
+    }
+
+    const action = line.match(/^\*{0,2}Button:\*{0,2}\s*(.+?)\s*→(?:\s*\{\{[^}]+\}\})?$/);
+    if (action) {
+      const resource = getActionResource(action[1]);
+      blocks.push({
+        type: 'action',
+        text: action[1],
+        href: resource ? resources?.[resource] : null,
+      });
+      index += 1;
+      continue;
+    }
+
+    const firstItem = line.match(/^(\*|\d+\.)\s+(.+)$/);
+    if (firstItem) {
+      const ordered = /^\d/.test(firstItem[1]);
+      const items = [];
+
+      while (index < lines.length) {
+        const item = lines[index].trim().match(/^(\*|\d+\.)\s+(.+)$/);
+        if (!item || /^\d/.test(item[1]) !== ordered) break;
+        items.push(item[2]);
+        index += 1;
+      }
+
+      blocks.push({ type: ordered ? 'ordered-list' : 'list', items });
+      continue;
+    }
+
+    const paragraph = [line];
+    index += 1;
+    while (index < lines.length && lines[index].trim() && !/^(#\s|\* |\d+\.|\|\s*\*|\*{0,2}Button:)/.test(lines[index].trim())) {
+      paragraph.push(lines[index].trim());
+      index += 1;
+    }
+    blocks.push({ type: 'paragraph', text: paragraph.join(' ') });
+  }
+
+  return blocks.map((block, index) => {
+    if (block.type === 'heading') {
+      return <h3 className="exam-resource-library__modal-heading" key={index}>{block.text}</h3>;
+    }
+
+    if (block.type === 'tagline') {
+      return <p className="exam-resource-library__modal-tagline" key={index}>{renderInline(block.text)}</p>;
+    }
+
+    if (block.type === 'list' || block.type === 'ordered-list') {
+      const List = block.type === 'ordered-list' ? 'ol' : 'ul';
+      return (
+        <List className="exam-resource-library__modal-list" key={index}>
+          {block.items.map((item, itemIndex) => <li key={itemIndex}>{renderInline(item)}</li>)}
+        </List>
+      );
+    }
+
+    if (block.type === 'action') {
+      return block.href ? (
+        <a
+          className="exam-resource-library__modal-action"
+          href={block.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          key={index}
+        >
+          {block.text} <FiArrowUpRight aria-hidden="true" />
+        </a>
+      ) : (
+        <span className="exam-resource-library__modal-action exam-resource-library__modal-action--unavailable" key={index}>
+          {block.text} <FiArrowUpRight aria-hidden="true" />
+        </span>
+      );
+    }
+
+    return <p className="exam-resource-library__modal-copy" key={index}>{renderInline(block.text)}</p>;
+  });
+}
 
 function ExamResourceLibrary() {
-  const [selectedExam, setSelectedExam] = useState(examResources[0]);
+  const [selectedExam, setSelectedExam] = useState(null);
+  const [isClosing, setIsClosing] = useState(false);
+  const dialogRef = useRef(null);
+  const closeTimer = useRef(null);
+  const isClosingRef = useRef(false);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (selectedExam && !dialog.open) dialog.showModal();
+    if (!selectedExam && dialog.open) dialog.close();
+
+    return () => window.clearTimeout(closeTimer.current);
+  }, [selectedExam]);
+
+  useEffect(() => {
+    if (!selectedExam) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [selectedExam]);
+
+  const closeModal = () => {
+    if (isClosingRef.current) return;
+    isClosingRef.current = true;
+    setIsClosing(true);
+    closeTimer.current = window.setTimeout(() => {
+      setSelectedExam(null);
+      setIsClosing(false);
+      isClosingRef.current = false;
+    }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 200);
+  };
 
   return (
     <main className="exam-resource-library">
-      <div className="exam-resource-library__glow" aria-hidden="true" />
       <div className="exam-resource-library__inner">
-        <nav className="exam-resource-library__exam-nav" aria-label="Choose an exam">
-          {examResources.map((exam) => (
-            <button
-              className={`exam-resource-library__exam-tab ${selectedExam.name === exam.name ? 'active' : ''}`}
-              type="button"
-              key={exam.name}
-              onClick={() => setSelectedExam(exam)}
-              aria-pressed={selectedExam.name === exam.name}
-            >
-              {exam.name}
-            </button>
-          ))}
-        </nav>
-
-        <section className="exam-resource-library__overview" aria-labelledby="exam-resource-title">
-          <span className="exam-resource-library__badge">{selectedExam.category}</span>
-          <h1 id="exam-resource-title">What is {selectedExam.name}?</h1>
-          <p>{selectedExam.overview}</p>
+        <section className="exam-resource-library__intro" aria-labelledby="study-exam-heading">
+          <span className="exam-resource-library__eyebrow"><FiBookOpen aria-hidden="true" /> NIRMAAN EXAM LIBRARY</span>
+          <h1 id="study-exam-heading">Your next chapter starts here.</h1>
+          <p>Explore exam details and find the resources to move your preparation forward.</p>
         </section>
 
-        <section className="exam-resource-library__section" aria-labelledby="exam-resource-highlights">
-          <h2 id="exam-resource-highlights">What’s New?</h2>
-          <div className="exam-resource-library__highlights">
-            {preparationHighlights.map(({ title, detail }, index) => (
-              <article className="exam-resource-library__highlight" key={title}>
-                <span className="exam-resource-library__highlight-marker" aria-hidden="true">
-                  0{index + 1}
+        <section className="exam-resource-library__grid" aria-label="Available examinations">
+          {studyExams.map((exam) => {
+            const tagline = exam.content.match(/^\|\s*\*(.+)\*\s*\|$/m)?.[1];
+            const subtitle = exam.content.split(/\n\s*\n/, 1)[0].replace(/\*\*/g, '');
+            return (
+              <article className="exam-resource-library__card" key={exam.name}>
+                <span className="exam-resource-library__card-icon" aria-hidden="true">
+                  <FiBookOpen />
                 </span>
-                <h3>{title}</h3>
-                <p>{detail}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="exam-resource-library__section" aria-labelledby="exam-resource-careers">
-          <h2 id="exam-resource-careers">Career Options</h2>
-          <div className="exam-resource-library__careers">
-            {selectedExam.careers.map((career, index) => (
-              <article className="exam-resource-library__career" key={career}>
-                <span className="exam-resource-library__career-number">0{index + 1}</span>
-                <h3>{career}</h3>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="exam-resource-library__section" aria-labelledby="exam-resource-collections">
-          <h2 id="exam-resource-collections">Preparation Resources</h2>
-          <div className="exam-resource-library__resource-grid">
-            {resourceCategories.map(({ key, title, detail, Icon }) => (
-              <article className="exam-resource-library__resource" key={key}>
-                <div className="exam-resource-library__resource-icon">
-                  <Icon aria-hidden="true" />
-                </div>
-                <div className="exam-resource-library__resource-copy">
-                  <h3>{title}</h3>
-                  <p>{detail}</p>
-                </div>
-                <a
+                <span className="exam-resource-library__badge">{exam.category}</span>
+                <h2>{exam.name}</h2>
+                <p>{tagline || subtitle}</p>
+                <button
                   className="exam-resource-library__open"
-                  href={selectedExam.resources[key]}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Open ${title} for ${selectedExam.name}`}
+                  type="button"
+                  onClick={() => setSelectedExam(exam)}
+                  aria-haspopup="dialog"
+                  aria-label={`View ${exam.name} exam details`}
                 >
-                  <span>Explore</span>
-                  <FiArrowUpRight aria-hidden="true" />
-                </a>
+                  View Exam <FiArrowUpRight aria-hidden="true" />
+                </button>
               </article>
-            ))}
-          </div>
+            );
+          })}
         </section>
       </div>
+
+      <dialog
+        className={`exam-resource-library__dialog${isClosing ? ' is-closing' : ''}`}
+        ref={dialogRef}
+        aria-labelledby="exam-resource-dialog-title"
+        onKeyDown={(event) => {
+          if (event.key === 'Escape') {
+            event.preventDefault();
+            closeModal();
+          }
+        }}
+        onCancel={(event) => {
+          event.preventDefault();
+          closeModal();
+        }}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) closeModal();
+        }}
+      >
+        {selectedExam && (
+          <div className="exam-resource-library__modal">
+            <header className="exam-resource-library__modal-header">
+              <div>
+                <span className="exam-resource-library__badge">{selectedExam.category}</span>
+                <h2 id="exam-resource-dialog-title">{selectedExam.name}</h2>
+              </div>
+              <button
+                className="exam-resource-library__close"
+                type="button"
+                onClick={closeModal}
+                aria-label="Close exam details"
+              >
+                <FiX aria-hidden="true" />
+              </button>
+            </header>
+            <div className="exam-resource-library__modal-body">
+              {renderExamContent(selectedExam.content, resourceLinks[selectedExam.resourceName])}
+            </div>
+          </div>
+        )}
+      </dialog>
     </main>
   );
 }

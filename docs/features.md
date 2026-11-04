@@ -20,17 +20,17 @@ Below is a complete mapping of paths to React Page Components:
 | `/team` | `Team` | Technical heads, core team members, and contributors profile grid. | `dataTeam2.js`, `dataTeam3.js` |
 | `/About` | `About` | Details of Samarth's mission, values, operations, and structure. | Static layout |
 | `/contact` | `Contact` | Contact form with input validation, Google Maps iframe embed, and email/social handles. | Contact configuration |
-| `/Resources` | `Exam` | Exam detail page with overviews, career options, and preparation links for GATE, CAT, SSC, and UPSC. | `exam-resources.js` |
+| `/Resources` | `Exam` | Responsive NIRMAAN exam library with exam cards, detail dialogs, and preparation links. | `study-exams.js`, `exam-resources.js` |
 | `/Aspirants` | `Aspirants` | Helper portal for university entrants and study aspirants. | `dataForAspirants/` |
-| `/study` | Redirect | Redirects to `/Resources` for existing links. | N/A |
+| `/study` | `Exam` | Direct route to the NIRMAAN exam library. | `study-exams.js`, `exam-resources.js` |
 | `/results` | `Results` | Student achievements, exam scores (GATE qualifiers), and highlights. | `data-results.js` |
 
 ---
 
 ## ⚡ Main Feature Modules
 
-### 1. Exam Resources (`/Resources`)
-The **[Exam](../src/pages/Exam.jsx)** page presents exam-specific overviews, career options, and preparation links. Users can select from six exams; each has links for previous-year questions, study resources, syllabus, and a preparation roadmap. The former `/study` route redirects here.
+### 1. Exam Resources (`/Resources`, `/study`)
+The **[Exam](../src/pages/Exam.jsx)** page presents responsive cards for UPSC, SSC CGL, CAT, GATE CS/IT, GATE ECE, and GATE EE. Each card opens a scrollable exam-details dialog with Escape and backdrop dismissal. Exam copy is maintained in **[study-exams.js](../src/assets/fake-data/study-exams.js)**; available preparation links come from **[exam-resources.js](../src/assets/fake-data/exam-resources.js)**. Both routes render the same page.
 
 ### 2. Event Showcase (`/events`)
 The **[Events](../src/pages/Events.jsx)** module displays:
