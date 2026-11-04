@@ -32,6 +32,8 @@ Below is a complete mapping of paths to React Page Components:
 ### 1. Exam Resources (`/Resources`, `/study`)
 The **[Exam](../src/pages/Exam.jsx)** page presents responsive cards for UPSC, SSC CGL, CAT, GATE CS/IT, GATE ECE, and GATE EE. Each card opens a scrollable exam-details dialog with Escape and backdrop dismissal. Exam copy is maintained in **[study-exams.js](../src/assets/fake-data/study-exams.js)**; available preparation links come from **[exam-resources.js](../src/assets/fake-data/exam-resources.js)**. Both routes render the same page.
 
+For the premium redesign requirements, see the design brief in **[study-exam-redesign.md](./study-exam-redesign.md)**.
+
 ### 2. Event Showcase (`/events`)
 The **[Events](../src/pages/Events.jsx)** module displays:
 * **Interactive Promotional Notifications**: Promotes ongoing major events (e.g., *Safalya*) with direct registration links.

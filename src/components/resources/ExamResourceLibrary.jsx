@@ -1,8 +1,51 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { FiArrowUpRight, FiBookOpen, FiX } from 'react-icons/fi';
+import { FiArrowUpRight, FiBookOpen, FiMessageCircle, FiX } from 'react-icons/fi';
 import examResources from '../../assets/fake-data/exam-resources';
 import studyExams from '../../assets/fake-data/study-exams';
 import './ExamResourceLibrary.scss';
+
+const whatsappGroupConfig = {
+  shared: [
+    {
+      label: 'Main NIRMAAN 2027 Aspirants Group',
+      url: 'https://chat.whatsapp.com/KGiEu8lbT2wKegPGLcR0LJ?s=cl&p=a&iam=2',
+    },
+  ],
+  exams: {
+    CAT: [
+      {
+        label: 'NIRMAAN CAT Aspirants',
+        url: 'https://chat.whatsapp.com/C4JKrKjSwdHA64N9ahQ2LC?s=cl&p=a&iam=2',
+      },
+    ],
+    UPSC: [
+      {
+        label: 'NIRMAAN UPSC Aspirants',
+        url: 'https://chat.whatsapp.com/EoTGCmOheWHFFO1GZX0lxs?s=cl&p=a&iam=2',
+      },
+    ],
+    'SSC CGL': [
+      {
+        label: 'NIRMAAN SSC Aspirants',
+        url: 'https://chat.whatsapp.com/Hn2CCa9mdwyJYblGLFeXVh?s=cl&p=a&iam=2',
+      },
+    ],
+  },
+  gate: {
+    'GATE CS/IT': [
+      {
+        label: 'GATE CS/IT-specific group',
+        url: 'https://chat.whatsapp.com/Dyt3ciPNPJEExmfSbi6tB6?s=cl&p=a&iam=2',
+      },
+    ],
+    'GATE ECE': [
+      {
+        label: 'GATE ECE-specific group',
+        url: 'https://chat.whatsapp.com/G4sttU6JueTJZe9ItEFiiv?s=cl&p=a&iam=2',
+      },
+    ],
+  },
+};
 
 const resourceLinks = Object.fromEntries(
   examResources.map(({ name, resources }) => [name, resources]),
@@ -28,6 +71,36 @@ function getActionResource(label) {
   if (/PYQs/i.test(label)) return 'pyq';
   if (/roadmap/i.test(label)) return 'roadmap';
   return null;
+}
+
+function renderWhatsAppGroups(groups) {
+  if (!groups || groups.length === 0) return null;
+
+  return (
+    <div className="exam-resource-library__whatsapp">
+      <h3 className="exam-resource-library__modal-heading">Connect with NIRMAAN Aspirants</h3>
+      <p className="exam-resource-library__whatsapp-description">
+        Join the WhatsApp communities to connect with fellow aspirants and access the respective preparation groups.
+      </p>
+      <div className="exam-resource-library__whatsapp-grid">
+        {groups.map((group) => (
+          <a
+            key={group.url}
+            className="exam-resource-library__whatsapp-link"
+            href={group.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span className="exam-resource-library__whatsapp-icon" aria-hidden="true">
+              <FiMessageCircle />
+            </span>
+            <span>{group.label}</span>
+            <FiArrowUpRight aria-hidden="true" />
+          </a>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function renderExamContent(markdown, resources) {
@@ -240,6 +313,10 @@ function ExamResourceLibrary() {
             </header>
             <div className="exam-resource-library__modal-body">
               {renderExamContent(selectedExam.content, resourceLinks[selectedExam.resourceName])}
+              {renderWhatsAppGroups([
+                ...whatsappGroupConfig.shared,
+                ...(whatsappGroupConfig.exams[selectedExam.name] || whatsappGroupConfig.gate[selectedExam.name] || []),
+              ])}
             </div>
           </div>
         )}

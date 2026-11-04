@@ -16,7 +16,9 @@ Please select a document below to explore specific parts of the platform:
    * Explains directory layouts, core abstractions, styling methodologies (SCSS), and the 3D-map architecture script.
 3. **[Features & Routing Mapping](./features.md)**
    * Describes the layout of pages, routes, data objects, and primary interactive modules (Exam details, Study playlists, and Aspirants resources).
-4. **[Mobile Platform Integration](./mobile-integration.md)**
+4. **[Study & Exam Page Redesign](./study-exam-redesign.md)**
+   * Documents the NIRMAAN `/study` redesign requirements, modal behavior, and maintainable data-driven content architecture for the exam library.
+5. **[Mobile Platform Integration](./mobile-integration.md)**
    * Explains how the hybrid Capacitor wrapper targets Android platforms and documents CI/CD release APK generation pipelines.
 5. **[Development & Coding Guidelines](./development-guide.md)**
    * Standards for component styling, React design patterns, custom state additions, and asset image optimization.
