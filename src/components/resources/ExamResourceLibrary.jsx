@@ -5,6 +5,7 @@ import studyExams from '../../assets/fake-data/study-exams';
 import './ExamResourceLibrary.scss';
 
 const whatsappGroupConfig = {
+  sharedExclusions: ['CAT', 'SSC CGL', 'UPSC'],
   shared: [
     {
       label: 'Main NIRMAAN 2027 Aspirants Group',
@@ -314,7 +315,7 @@ function ExamResourceLibrary() {
             <div className="exam-resource-library__modal-body">
               {renderExamContent(selectedExam.content, resourceLinks[selectedExam.resourceName])}
               {renderWhatsAppGroups([
-                ...whatsappGroupConfig.shared,
+                ...(whatsappGroupConfig.sharedExclusions.includes(selectedExam.name) ? [] : whatsappGroupConfig.shared),
                 ...(whatsappGroupConfig.exams[selectedExam.name] || whatsappGroupConfig.gate[selectedExam.name] || []),
               ])}
             </div>
