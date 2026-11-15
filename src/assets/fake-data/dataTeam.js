@@ -1,6 +1,10 @@
 
 import avatarPlaceholder from '/images2/Team/avatar.png'
 import aninditaImage from '/images2/Team/anindita-sarkar.webp'
+import tamasmitaImage from '/images2/Team/tamasmita-basu.webp'
+import rupaImage from '/images2/Team/rupa-biswas.webp'
+import madhurimaImage from '/images2/Team/madhurima-kundu.webp'
+import ankitaImage from '/images2/Team/ankita-basak.webp'
 
 const dataTeam = [
     {
@@ -33,7 +37,7 @@ const dataTeam = [
     },
     {
         id: 5,
-        img: avatarPlaceholder,
+        img: tamasmitaImage,
         name: 'Dr. Tamasmita Basu',
         department: 'BHM',
         position: 'Member'
@@ -47,21 +51,21 @@ const dataTeam = [
     },
     {
         id: 7,
-        img: avatarPlaceholder,
+        img: madhurimaImage,
         name: 'Dr. Madhurima Kundu',
         department: 'BHM',
         position: 'Member'
     },
     {
         id: 8,
-        img: avatarPlaceholder,
+        img: ankitaImage,
         name: 'Prof. Ankita Basak',
         department: 'BHM',
         position: 'Member'
     },
     {
         id: 9,
-        img: avatarPlaceholder,
+        img: rupaImage,
         name: 'Prof. Rupa Biswas',
         department: 'BMS',
         position: 'Member'
