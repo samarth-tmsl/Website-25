@@ -5,6 +5,10 @@ import tamasmitaImage from '/images2/Team/tamasmita-basu.webp'
 import rupaImage from '/images2/Team/rupa-biswas.webp'
 import madhurimaImage from '/images2/Team/madhurima-kundu.webp'
 import ankitaImage from '/images2/Team/ankita-basak.webp'
+import ayeshaImage from '/images2/Team/teacher1.webp'
+import hemantImage from '/images2/Team/teacher4.webp'
+import dipenImage from '/images2/Team/teacher5.webp'
+import gouravImage from '/images2/Team/Gourav.webp'
 
 const dataTeam = [
     {
@@ -16,14 +20,14 @@ const dataTeam = [
     },
     {
         id: 2,
-        img: avatarPlaceholder,
+        img: ayeshaImage,
         name: 'Prof. Ayesha Sultana',
         department: 'ECE',
         position: 'Co-Convenor'
     },
     {
         id: 3,
-        img: avatarPlaceholder,
+        img: hemantImage,
         name: 'Prof. Hemant Agarwal',
         department: 'EE',
         position: 'Co-Convenor'
@@ -38,6 +42,7 @@ const dataTeam = [
     {
         id: 5,
         img: tamasmitaImage,
+        imagePosition: 'center 40%',
         name: 'Dr. Tamasmita Basu',
         department: 'BHM',
         position: 'Member'
@@ -66,6 +71,7 @@ const dataTeam = [
     {
         id: 9,
         img: rupaImage,
+        imagePosition: 'center 40%',
         name: 'Prof. Rupa Biswas',
         department: 'BMS',
         position: 'Member'
@@ -79,14 +85,14 @@ const dataTeam = [
     },
     {
         id: 11,
-        img: avatarPlaceholder,
+        img: dipenImage,
         name: 'Dr. Dipen Ganguly',
         department: 'Maths',
         position: 'Member'
     },
     {
         id: 12,
-        img: avatarPlaceholder,
+        img: gouravImage,
         name: 'Prof. Gourav Ghosh',
         department: 'CE',
         position: 'Member'

@@ -88,7 +88,11 @@ function Team2(props) {
                 <div className="team-box">
                   <div className="image">
                     <Link to="/team">
-                      <img src={idx.img} alt="Cyfonii" />
+                      <img
+                        src={idx.img}
+                        alt={idx.name}
+                        style={idx.imagePosition ? { objectPosition: idx.imagePosition } : undefined}
+                      />
                     </Link>
                     {/* Social media links */}
                   </div>
