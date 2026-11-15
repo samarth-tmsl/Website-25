@@ -17,7 +17,7 @@ import dataTeam5 from '../assets/fake-data/dataTeam5';
 import { api } from '../services/api';
 
 function Team(props) {
-    const [faculty, setFaculty] = useState(dataTeam);
+    const faculty = dataTeam;
     const [heads, setHeads] = useState(dataTeam2);
     const [coHeads, setCoHeads] = useState(dataTeam3);
     const [loading, setLoading] = useState(true);
@@ -37,13 +37,6 @@ function Team(props) {
                         }
                     }));
 
-                    const facultyList = mapped.filter(m => 
-                        m.wing === 'Committee' || 
-                        m.position.toLowerCase().includes('advisor') || 
-                        m.position.toLowerCase().includes('professor') || 
-                        m.position.toLowerCase().includes('dr.')
-                    );
-                    
                     const headsList = mapped.filter(m => 
                         m.position === 'President' || 
                         m.position === 'Vice President' || 
@@ -59,7 +52,6 @@ function Team(props) {
                         m.position === 'Member' // fallback category
                     );
 
-                    if (facultyList.length > 0) setFaculty(facultyList);
                     if (headsList.length > 0) setHeads(headsList);
                     if (coHeadsList.length > 0) setCoHeads(coHeadsList);
                 }

@@ -59,7 +59,7 @@ function Team2(props) {
           <div className="col-12">
             <div className="block-text center">
               <h6 className="sub-heading">
-                <span>Facullty Advisors</span>
+                <span>Faculty Advisors</span>
               </h6>
               <h3 className="heading wow" data-splitting>
                 Honourable Teacher
@@ -96,6 +96,7 @@ function Team2(props) {
                     <Link to="/team" className="h5 name">
                       {idx.name}
                     </Link>
+                    <p className="position">{idx.department}</p>
                     <p className="position">{idx.position}</p>
                   </div>
                 </div>
