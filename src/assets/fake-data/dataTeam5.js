@@ -272,16 +272,16 @@ const dataTeam5 = [
       link2: null
     }
   },
-  {
-    id: 25,
-    img: img25,
-    name: 'Debprakash Roy',
-    position: 'Social Media Co-Head',
-    links: {
-      link1: null,
-      link2: null
-    }
-  },
+  // {
+  //   id: 25,
+  //   img: img25,
+  //   name: 'Debprakash Roy',
+  //   position: 'Social Media Co-Head',
+  //   links: {
+  //     link1: null,
+  //     link2: null
+  //   }
+  // },
   {
     id: 26,
     img: img26,
