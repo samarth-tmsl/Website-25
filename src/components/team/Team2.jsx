@@ -91,7 +91,7 @@ function Team2(props) {
                       <img
                         src={idx.img}
                         alt={idx.name}
-                        style={idx.imagePosition ? { objectPosition: idx.imagePosition } : undefined}
+                        style={idx.imageFit ? { objectFit: idx.imageFit } : undefined}
                       />
                     </Link>
                     {/* Social media links */}

@@ -28,6 +28,7 @@ const dataTeam = [
     {
         id: 3,
         img: hemantImage,
+        imageFit: 'contain',
         name: 'Prof. Hemant Agarwal',
         department: 'EE',
         position: 'Co-Convenor'
@@ -42,7 +43,7 @@ const dataTeam = [
     {
         id: 5,
         img: tamasmitaImage,
-        imagePosition: 'center 40%',
+        imageFit: 'contain',
         name: 'Dr. Tamasmita Basu',
         department: 'BHM',
         position: 'Member'
@@ -71,7 +72,7 @@ const dataTeam = [
     {
         id: 9,
         img: rupaImage,
-        imagePosition: 'center 40%',
+        imageFit: 'contain',
         name: 'Prof. Rupa Biswas',
         department: 'BMS',
         position: 'Member'
