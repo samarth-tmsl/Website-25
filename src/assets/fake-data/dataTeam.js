@@ -1,10 +1,11 @@
 
 import avatarPlaceholder from '/images2/Team/avatar.png'
+import aninditaImage from '/images2/Team/anindita-sarkar.webp'
 
 const dataTeam = [
     {
         id: 1,
-        img: avatarPlaceholder,
+        img: aninditaImage,
         name: 'Dr. Anindita Sarkar',
         department: 'BHM',
         position: 'Convenor'
