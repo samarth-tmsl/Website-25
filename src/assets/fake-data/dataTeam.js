@@ -1,5 +1,6 @@
 
 import avatarPlaceholder from '/images2/Team/avatar.png'
+import depanwitaImage from '/images2/Team/depanwita-debnath.webp'
 import abhijeetImage from '/images2/Team/abhijeet-dey.webp'
 import sumanImage from '/images2/Team/suman-ghosh.webp'
 import aninditaImage from '/images2/Team/anindita-sarkar.webp'
@@ -52,7 +53,7 @@ const dataTeam = [
     },
     {
         id: 6,
-        img: avatarPlaceholder,
+        img: depanwitaImage,
         name: 'Prof. Depanwita Debnath',
         department: 'ECE',
         position: 'Member'
