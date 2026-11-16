@@ -47,7 +47,7 @@ function Banner2(props) {
 
                         <div className="block-text center" style={{ marginTop: '80px' }}>
                             <h6 className="sub-heading"><span>Our Events</span></h6>
-                            <h2 className="heading pd">Live Events</h2>
+                            <h2 className="heading pd">Past Events</h2>
                         </div>
                         <div style={{
                             width: '100px',
