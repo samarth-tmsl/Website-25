@@ -1,5 +1,6 @@
 const AptiQuestImg = 'images2/resultimg/AptiQuest.webp';
-const EducathonImg = '/images2/new/educathonPoster.webp'
+const EducathonImg = '/images2/new/educathonPoster.webp';
+const TrinayaniImg = '/images2/new/trinayaniPoster.webp';
 
 const logo = '/images2/new/newlogo.webp';
 
@@ -55,6 +56,47 @@ const results = [
       name: "SheCodes",
       college: "Heritage Institute of Technology, Kolkata",
     },
+    ],
+  },
+  {
+    id: 3,
+    type: 2,
+    img: TrinayaniImg,
+    title: 'Trinayani',
+    avt: logo,
+    name: 'Team Samarth',
+    tag: '@TechTeam',
+    winners: [
+      {
+        position: '1st Place',
+        name: 'SRIJA SARKAR',
+        college: 'BCA, 1st Year',
+      },
+      {
+        position: '2nd Place',
+        name: 'ARITRA GUHA',
+        college: 'ECE, 2nd Year',
+      },
+      {
+        position: '3rd Place',
+        name: 'RISHAV DAS',
+        college: 'ECE, 2nd Year',
+      },
+      {
+        position: 'Special Mention 1',
+        name: 'ARIT DHAR',
+        college: 'BBA, 2nd Year',
+      },
+      {
+        position: 'Special Mention 2',
+        name: 'INDRADIP DAS',
+        college: 'ECE, 2nd Year',
+      },
+      {
+        position: 'Special Mention 3',
+        name: 'SONALI KUMARI',
+        college: 'ECS, 2nd Year',
+      },
     ],
   },
 ];

@@ -11,6 +11,11 @@ function Resultbody(props) {
   const { data } = props;
   const [activeResult, setActiveResult] = useState(null);
 
+  const isWinnerResult = activeResult?.winners?.some((winner) => {
+    const position = String(winner?.position || '').trim();
+    return /^(\d+(st|nd|rd|th)|Winner|Runner Up|Finalist|Special Mention)$/i.test(position);
+  });
+
   const handleOpenResult = (item) => {
     setActiveResult(item);
   };
@@ -120,7 +125,9 @@ function Resultbody(props) {
               }}
             >
               <h3 style={{ marginBottom: '10px' }}>{activeResult.title}</h3>
-              <p style={{ color: '#ddd', marginBottom: '15px' }}>Winners</p>
+              <p style={{ color: '#ddd', marginBottom: '15px' }}>
+                {isWinnerResult ? 'Winners' : 'Event Highlights'}
+              </p>
 
               {/* TYPE 1 → Simple Style */}
               {activeResult.type === 1 && (
