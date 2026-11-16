@@ -1,6 +1,7 @@
 
 import avatarPlaceholder from '/images2/Team/avatar.png'
 import abhijeetImage from '/images2/Team/abhijeet-dey.webp'
+import sumanImage from '/images2/Team/suman-ghosh.webp'
 import aninditaImage from '/images2/Team/anindita-sarkar.webp'
 import tamasmitaImage from '/images2/Team/tamasmita-basu.webp'
 import rupaImage from '/images2/Team/rupa-biswas.webp'
@@ -80,7 +81,7 @@ const dataTeam = [
     },
     {
         id: 10,
-        img: avatarPlaceholder,
+        img: sumanImage,
         name: 'Prof. Suman Ghosh',
         department: 'EE',
         position: 'Member'
