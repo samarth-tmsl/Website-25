@@ -1,5 +1,6 @@
 
 import avatarPlaceholder from '/images2/Team/avatar.png'
+import abhijeetImage from '/images2/Team/abhijeet-dey.webp'
 import aninditaImage from '/images2/Team/anindita-sarkar.webp'
 import tamasmitaImage from '/images2/Team/tamasmita-basu.webp'
 import rupaImage from '/images2/Team/rupa-biswas.webp'
@@ -35,8 +36,8 @@ const dataTeam = [
     },
     {
         id: 4,
-        img: avatarPlaceholder,
-        name: 'Prof. Abhijit Dey',
+        img: abhijeetImage,
+        name: 'Prof. Abhijeet Dey',
         department: 'ECE',
         position: 'Member'
     },
