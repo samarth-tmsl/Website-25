@@ -46,6 +46,12 @@ function Banner2(props) {
                         </div>
 
                         <div className="block-text center" style={{ marginTop: '80px' }}>
+                            <h6 className="sub-heading"><span>Coming Soon</span></h6>
+                            <h2 className="heading pd">Live Events</h2>
+                            <p className="mb-34">New events are coming up soon. Stay tuned!</p>
+                        </div>
+
+                        <div className="block-text center" style={{ marginTop: '80px' }}>
                             <h6 className="sub-heading"><span>Our Events</span></h6>
                             <h2 className="heading pd">Past Events</h2>
                         </div>
