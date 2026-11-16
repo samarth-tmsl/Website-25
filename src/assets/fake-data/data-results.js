@@ -1,6 +1,7 @@
 const AptiQuestImg = 'images2/resultimg/AptiQuest.webp';
 const EducathonImg = '/images2/new/educathonPoster.webp';
-const TrinayaniImg = '/images2/new/trinayaniPoster.webp';
+const TrinayaniImg = 'images2/resultimg/trinayaniPoster.webp';
+const UtsabDrishtiImg = 'images2/resultimg/UtsabDrishti.webp';
 
 const logo = '/images2/new/newlogo.webp';
 
@@ -68,34 +69,99 @@ const results = [
     tag: '@TechTeam',
     winners: [
       {
-        position: '1st Place',
-        name: 'SRIJA SARKAR',
-        college: 'BCA, 1st Year',
+        position: '1st',
+        name: 'SRIJA SARKAR (BCA, 1st Year)',
       },
       {
-        position: '2nd Place',
-        name: 'ARITRA GUHA',
-        college: 'ECE, 2nd Year',
+        position: '2nd',
+        name: 'ARITRA GUHA (ECE, 2nd Year)',
       },
       {
-        position: '3rd Place',
-        name: 'RISHAV DAS',
-        college: 'ECE, 2nd Year',
+        position: '3rd',
+        name: 'RISHAV DAS (ECE, 2nd Year)',
       },
       {
         position: 'Special Mention 1',
-        name: 'ARIT DHAR',
-        college: 'BBA, 2nd Year',
+        name: 'ARIT DHAR (BBA, 2nd Year)',
       },
       {
         position: 'Special Mention 2',
-        name: 'INDRADIP DAS',
-        college: 'ECE, 2nd Year',
+        name: 'INDRADIP DAS (ECE, 2nd Year)',
       },
       {
         position: 'Special Mention 3',
-        name: 'SONALI KUMARI',
-        college: 'ECS, 2nd Year',
+        name: 'SONALI KUMARI (ECS, 2nd Year)',
+      },
+    ],
+  },
+  {
+    id: 4,
+    type: 2,
+    img: UtsabDrishtiImg,
+    title: 'Utsab Drishti',
+    avt: logo,
+    name: 'Team Samarth',
+    tag: '@TechTeam',
+    winners: [
+      {
+        position: '1st',
+        name: 'Soumyabrata Sahu',
+        category: 'Photography',
+      },
+      {
+        position: '2nd',
+        name: 'Sayan Saha',
+        category: 'Photography',
+      },
+      {
+        position: '3rd',
+        name: 'Anwesh Mukherjee',
+        category: 'Photography',
+      },
+      {
+        position: 'Special Mention',
+        name: 'Sudip Haldar',
+        category: 'Photography',
+      },
+      {
+        position: 'Special Mention',
+        name: 'Arit Dhar',
+        category: 'Photography',
+      },
+      {
+        position: 'Special Mention',
+        name: 'Mousumio Ghosh',
+        category: 'Photography',
+      },
+      {
+        position: 'Special Mention',
+        name: 'Soumyodeep Hazra',
+        category: 'Photography',
+      },
+      {
+        position: 'Special Mention',
+        name: 'Suraj Banerjee',
+        category: 'Photography',
+      },
+      {
+        position: '1st',
+        name: 'Subham Nandi',
+        category: 'Videography',
+      },
+      {
+        position: '2nd',
+        name: 'Rahul Kr Shaw',
+        category: 'Videography',
+      },
+      {
+        position: '3rd',
+        name: 'Debangi Das',
+        category: 'Videography',
+      },
+      {
+        position: 'Special Mention',
+        name: 'Sayan Saha',
+        category: 'Videography',
       },
     ],
   },

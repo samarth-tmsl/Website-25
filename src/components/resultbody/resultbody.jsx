@@ -214,18 +214,19 @@ function Resultbody(props) {
                             fontWeight: '600',
                           }}
                         >
-                          Team: {winner.name}
+                          {isWinnerResult && winner.college ? `Team: ${winner.name}` : winner.name}
                         </p>
-
-                        <p
-                          style={{
-                            margin: '3px 0 0',
-                            color: '#ccc',
-                            fontSize: '14px',
-                          }}
-                        >
-                          College: {winner.college}
-                        </p>
+                        {(winner.college || winner.category) && (
+                          <p
+                            style={{
+                              margin: '3px 0 0',
+                              color: '#ccc',
+                              fontSize: '14px',
+                            }}
+                          >
+                            {winner.category ? `Category: ${winner.category}` : `College: ${winner.college}`}
+                          </p>
+                        )}
 
                         
                       </div>
