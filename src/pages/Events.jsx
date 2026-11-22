@@ -22,6 +22,7 @@ import dataOfPast from '../assets/fake-data/data-past';
 
 import Safalya26 from '../components/eventhead/Safalya26';
 import dataSafalya26 from "../assets/fake-data/data-safalya26";
+import ClashOfCreativity2027 from '../components/eventhead/ClashOfCreativity2027';
 
 import { api } from '../services/api';
 
@@ -82,6 +83,8 @@ function Events(props) {
         </div>
       ) : hasDynamicData ? (
         <>
+          <ClashOfCreativity2027 />
+
           {/* Safalya'27 */}
           <Safalya26
             data={[]}
@@ -128,6 +131,8 @@ function Events(props) {
       ) : (
         // Static Fallbacks
         <>
+          <ClashOfCreativity2027 />
+
           {/* Safalya'27 */}
           <Safalya26
             data={[]}
