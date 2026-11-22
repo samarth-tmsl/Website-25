@@ -373,6 +373,12 @@
 
 }
 
+.liveEventsSwiper {
+    .card-box .content .image img {
+        object-fit: contain;
+    }
+}
+
 .banner.s3 {
 
     .shape {

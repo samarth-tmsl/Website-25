@@ -13,6 +13,7 @@ import "swiper/css/pagination";
 
 import { EffectCoverflow, Autoplay, Pagination, Navigation } from "swiper";
 import Button from '../button/Button';
+import dataLiveEvents from '../../assets/fake-data/data-live-events';
 
 Banner2.propTypes = {
     data: PropTypes.array
@@ -46,13 +47,90 @@ function Banner2(props) {
                         </div>
 
                         <div className="block-text center" style={{ marginTop: '80px' }}>
-                            <h6 className="sub-heading"><span>Coming Soon</span></h6>
+                            <h6 className="sub-heading"><span>Our Events</span></h6>
                             <h2 className="heading pd">Live Events</h2>
-                            <p className="mb-34">New events are coming up soon. Stay tuned!</p>
                         </div>
+                        <div style={{
+                            width: '100px',
+                            height: '4px',
+                            background: 'linear-gradient(90deg, #7C3AED, #A78BFA)',
+                            margin: '0 auto',
+                            borderRadius: '2px'
+                        }}></div>
+
+                        <Swiper
+                            effect={"coverflow"}
+                            grabCursor={true}
+                            centeredSlides={true}
+                            breakpoints={{
+                                0: {
+                                    slidesPerView: 1,
+                                },
+                                500: {
+                                    slidesPerView: 2,
+                                },
+                                700: {
+                                    slidesPerView: 3,
+                                },
+                            }}
+                            coverflowEffect={{
+                                rotate: 30,
+                                stretch: 15,
+                                depth: 320,
+                                modifier: 1,
+                                slideShadows: false,
+                            }}
+                            loop={true}
+                            autoplay={{
+                                delay: 2500,
+                                disableOnInteraction: false,
+                            }}
+                            modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
+                            className="bannerSwiper liveEventsSwiper"
+                        >
+                            {dataLiveEvents.map(event => (
+                                <SwiperSlide key={event.id}>
+                                    <div className="card-box">
+                                        <div className="top d-flex">
+                                            <img src={newlogo} alt="Samarth" style={{ width: '38px', height: '28px' }} />
+                                            <div>
+                                                <h6>{event.title}</h6>
+                                                <h6 className="price"></h6>
+                                            </div>
+                                        </div>
+                                        <div className="content">
+                                            <div className="image">
+                                                <img src={event.img} alt={event.title} loading="lazy" />
+                                            </div>
+
+                                            <div className="info d-flex">
+                                                <img src={newlogo} alt="Samarth" />
+                                                <div>
+                                                    <h6 className="name">Team Samarth</h6>
+                                                    <p>@Samarth</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="registration-btn" style={{
+                                                marginTop: '15px',
+                                                textAlign: 'center'
+                                            }}>
+                                                <a
+                                                    href={event.registrationLink}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="action-btn"
+                                                >
+                                                    <span>REGISTER NOW</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
 
                         <div className="block-text center" style={{ marginTop: '80px' }}>
-                            <h6 className="sub-heading"><span>Our Events</span></h6>
                             <h2 className="heading pd">Past Events</h2>
                         </div>
                         <div style={{
@@ -129,36 +207,14 @@ function Banner2(props) {
                                                     marginTop: '15px',
                                                     textAlign: 'center'
                                                 }}>
-                                                    {idx.isLive && idx.registrationLink ? (
-                                                        <a
-                                                            href={idx.registrationLink}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="action-btn"
-                                                        >
-                                                            <span>REGISTER NOW</span>
-                                                        </a>
-                                                    ) : idx.comingSoon ? (
-                                                        <div className="action-btn" style={{ cursor: 'default' }}>
-                                                            <span style={{
-                                                                background: 'linear-gradient(264.28deg, #FFA500 -38.2%, #FF8C00 103.12%)',
-                                                                cursor: 'default'
-                                                            }}>
-                                                                Register Now
-                                                            </span>
-                                                        </div>
-                                                    ) : (
-                                                        //registration closed
-                                                        <div className="action-btn" style={{ cursor: 'not-allowed', opacity: '0.7' }}>
-                                                            <span style={{
-                                                                background: 'linear-gradient(264.28deg, #6B7280 -38.2%, #4B5563 103.12%)',
-                                                                cursor: 'not-allowed'
-                                                            }}>
-                                                                REGISTRATION CLOSED
-
-                                                            </span>
-                                                        </div>
-                                                    )}
+                                                    <div className="action-btn" style={{ cursor: 'default', opacity: '0.7' }} aria-disabled="true">
+                                                        <span style={{
+                                                            background: 'linear-gradient(264.28deg, #6B7280 -38.2%, #4B5563 103.12%)',
+                                                            cursor: 'default'
+                                                        }}>
+                                                            EVENT ENDED
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
