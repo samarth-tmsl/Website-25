@@ -26,6 +26,8 @@ const img21 = '/images2/new/guest/guest_Santosh.jpg'
 const img22 = '/images2/new/guest/guest_Shloka.jpg'
 const img23 = '/images2/new/guest/2.png'
 const img24 = '/images2/new/guest/Gajendra.png'
+const img25 = '/images2/new/guest/Srijan Dutta.webp'
+const img26 = '/images2/new/guest/Anil Swarup.webp'
 const dataProject = [
     {
         id: 1,
@@ -154,6 +156,16 @@ const dataProject = [
         id: 24,
         img: img24,
         title: 'Gajendra Purohit'
+    },
+    {
+        id: 25,
+        img: img25,
+        title: 'Srijan Dutta'
+    },
+    {
+        id: 26,
+        img: img26,
+        title: 'Anil Swarup'
     },
 ]
 
