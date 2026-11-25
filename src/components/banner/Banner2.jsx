@@ -14,6 +14,7 @@ import "swiper/css/pagination";
 import { EffectCoverflow, Autoplay, Pagination, Navigation } from "swiper";
 import Button from '../button/Button';
 import dataLiveEvents from '../../assets/fake-data/data-live-events';
+import { SplitText } from '../reactbits';
 
 Banner2.propTypes = {
     data: PropTypes.array
@@ -38,8 +39,8 @@ function Banner2(props) {
                     <div className="col-12">
                         <div className="block-text center">
                             <h6 className="sub-heading"><span>{dataBlock.subheading}</span></h6>
-                            <h2 className="heading pd">{dataBlock.heading}
-
+                            <h2 className="heading pd">
+                                <SplitText text={dataBlock.heading} delay={35} />
                             </h2>
                             <p className="mb-34">{dataBlock.desc}</p>
 

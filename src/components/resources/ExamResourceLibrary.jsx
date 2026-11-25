@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { FiArrowUpRight, FiBookOpen, FiMessageCircle, FiX } from 'react-icons/fi';
 import examResources from '../../assets/fake-data/exam-resources';
 import studyExams from '../../assets/fake-data/study-exams';
+import CatLineEmblem from './CatLineEmblem';
 import './ExamResourceLibrary.scss';
 
 const whatsappGroupConfig = {
@@ -46,6 +47,14 @@ const whatsappGroupConfig = {
       },
     ],
   },
+};
+
+const examEmblems = {
+  UPSC: '/images2/upsc-emblem.webp',
+  'SSC CGL': '/images2/ssc-emblem.webp',
+  'GATE CS/IT': '/images2/gate-emblem.webp',
+  'GATE ECE': '/images2/gate-emblem.webp',
+  'GATE EE': '/images2/gate-emblem.webp',
 };
 
 const resourceLinks = Object.fromEntries(
@@ -255,8 +264,19 @@ function ExamResourceLibrary() {
           {studyExams.map((exam) => {
             const tagline = exam.content.match(/^\|\s*\*(.+)\*\s*\|$/m)?.[1];
             const subtitle = exam.content.split(/\n\s*\n/, 1)[0].replace(/\*\*/g, '');
+            const emblemSrc = examEmblems[exam.name];
+            const isCat = exam.name === 'CAT';
+            const hasEmblem = Boolean(emblemSrc || isCat);
             return (
-              <article className="exam-resource-library__card" key={exam.name}>
+              <article
+                className={`exam-resource-library__card${hasEmblem ? ' exam-resource-library__card--with-emblem' : ''}${isCat ? ' exam-resource-library__card--cat' : ''}`}
+                key={exam.name}
+              >
+                {hasEmblem && (
+                  <div className="exam-resource-library__emblem" aria-hidden="true">
+                    {isCat ? <CatLineEmblem /> : <img src={emblemSrc} alt="" loading="lazy" />}
+                  </div>
+                )}
                 <span className="exam-resource-library__card-icon" aria-hidden="true">
                   <FiBookOpen />
                 </span>
