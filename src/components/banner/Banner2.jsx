@@ -62,28 +62,22 @@ function Banner2(props) {
                             effect={"coverflow"}
                             grabCursor={true}
                             centeredSlides={true}
-                            breakpoints={{
-                                0: {
-                                    slidesPerView: 1,
-                                },
-                                500: {
-                                    slidesPerView: 2,
-                                },
-                                700: {
-                                    slidesPerView: 3,
-                                },
-                            }}
+                            slidesPerView={"auto"}
                             coverflowEffect={{
-                                rotate: 30,
-                                stretch: 15,
-                                depth: 320,
-                                modifier: 1,
+                                rotate: 25,
+                                stretch: 0,
+                                depth: 250,
+                                modifier: 1.2,
                                 slideShadows: false,
                             }}
                             loop={true}
+                            pagination={{
+                                clickable: true,
+                            }}
                             autoplay={{
-                                delay: 2500,
+                                delay: 3000,
                                 disableOnInteraction: false,
+                                pauseOnMouseEnter: true,
                             }}
                             modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
                             className="bannerSwiper liveEventsSwiper"
@@ -113,7 +107,11 @@ function Banner2(props) {
 
                                             <div className="registration-btn" style={{
                                                 marginTop: '15px',
-                                                textAlign: 'center'
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                gap: '10px',
+                                                flexWrap: 'wrap'
                                             }}>
                                                 <a
                                                     href={event.registrationLink}
@@ -123,6 +121,14 @@ function Banner2(props) {
                                                 >
                                                     <span>REGISTER NOW</span>
                                                 </a>
+                                                <a
+                                                    href="https://drive.google.com/drive/folders/1gj4VQVTFs4m6Ue6DFApFD2pCRqw_Wd8m"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="action-btn"
+                                                >
+                                                    <span>RuleBook</span>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -130,7 +136,8 @@ function Banner2(props) {
                             ))}
                         </Swiper>
 
-                        <div className="block-text center" style={{ marginTop: '80px' }}>
+                        {/* --- Past Events Section --- */}
+                        {/* <div className="block-text center" style={{ marginTop: '80px' }}>
                             <h2 className="heading pd">Past Events</h2>
                         </div>
                         <div style={{
@@ -176,11 +183,10 @@ function Banner2(props) {
                         >
 
                             {
-                                data.map(idx => (
+                                data && data.map(idx => (
                                     <SwiperSlide key={idx.id}>
                                         <div className="card-box" >
                                             <div className="top d-flex">
-                                                {/* <span className="icon-logo-01"></span> */}
                                                 <img src={newlogo} alt="My Image" style={{ width: '38px', height: '28px' }} />
 
                                                 <div>
@@ -192,24 +198,20 @@ function Banner2(props) {
                                                 <div className="image">
                                                     <img src={idx.img} alt="Cyfonii" />
                                                 </div>
-
                                                 <div className="info d-flex">
                                                     <img src={idx.avt} alt="Cyfonii" />
-
                                                     <div >
                                                         <h6 className="name">{idx.name}</h6>
                                                         <p>{idx.tag}</p>
                                                     </div>
                                                 </div>
-
-                                                {/* Registration Button */}
                                                 <div className="registration-btn" style={{
                                                     marginTop: '15px',
                                                     textAlign: 'center'
                                                 }}>
                                                     <div className="action-btn" style={{ cursor: 'default', opacity: '0.7' }} aria-disabled="true">
                                                         <span style={{
-                                                            background: 'linear-gradient(264.28deg, #6B7280 -38.2%, #4B5563 103.12%)',
+                                                             background: 'linear-gradient(264.28deg, #6B7280 -38.2%, #4B5563 103.12%)',
                                                             cursor: 'default'
                                                         }}>
                                                             EVENT ENDED
@@ -221,10 +223,7 @@ function Banner2(props) {
                                     </SwiperSlide>
                                 ))
                             }
-
-
-
-                        </Swiper>
+                        </Swiper> */}
                     </div>
                 </div>
             </div>

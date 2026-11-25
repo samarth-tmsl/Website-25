@@ -3,26 +3,11 @@ import React, { useState, useEffect } from "react";
 import PageTitle from "../components/pagetitle/PageTitle_Explore";
 
 import Project3 from "../components/project/Project3";
-import dataItem from "../assets/fake-data/data-item";
-
-import Portfolio1 from "../components/eventhead/event1";
-
-import Portfolio2 from "../components/eventhead/event2";
-
-import Project4 from "../components/project/Project4";
-import dataItem2 from "../assets/fake-data/data-item2";
-
-import Portfolio3 from "../components/eventhead/event3";
-
-import Project5 from "../components/project/Project5";
-import dataItem3 from "../assets/fake-data/data-item3";
-
 import ProjectPast from '../components/project/ProjectPast';
 import dataOfPast from '../assets/fake-data/data-past';
 
-import Safalya26 from '../components/eventhead/Safalya26';
-import dataSafalya26 from "../assets/fake-data/data-safalya26";
-import ClashOfCreativity2027 from '../components/eventhead/ClashOfCreativity2027';
+import YearlyEvents from '../components/eventhead/YearlyEvents';
+import dataEventsYearly from '../assets/fake-data/data-events-yearly';
 
 import { api } from '../services/api';
 
@@ -83,17 +68,7 @@ function Events(props) {
         </div>
       ) : hasDynamicData ? (
         <>
-          <ClashOfCreativity2027 />
-
-          {/* Safalya'27 */}
-          <Safalya26
-            data={[]}
-            heading="Safalya '27"
-            message="New events are loading..."
-          />
-
-          {/* Safalya'26 */}
-          <Safalya26 data={dataSafalya26} />
+          <YearlyEvents data={dataEventsYearly} />
 
           {/* Dynamic Upcoming Events Section */}
           {upcomingEvents.length > 0 && (
@@ -130,46 +105,7 @@ function Events(props) {
         </>
       ) : (
         // Static Fallbacks
-        <>
-          <ClashOfCreativity2027 />
-
-          {/* Safalya'27 */}
-          <Safalya26
-            data={[]}
-            heading="Safalya '27"
-            message="New events are loading..."
-          />
-
-          {/* Safalya'26 */}
-          <Safalya26 data={dataSafalya26} />
-
-          {/* Past Events */}
-          <section className="tf-section project s2">
-            <div className="container">
-              <div className="row">
-                <div className="col-12">
-                  <div className="block-text center">
-                    <h6 className="sub-heading"><span>Timeline</span></h6>
-                    <h3 className="heading">Our Past Events</h3>
-                  </div>
-                </div>
-                <ProjectPast data={dataOfPast} />
-              </div>
-            </div>
-          </section>
-
-          {/* Safalya'23 */}
-          <Portfolio1 />
-          <Project3 data={dataItem} />
-
-          {/* Special Events */}
-          <Portfolio2 />
-          <Project4 data={dataItem2} />
-
-          {/* Other Events */}
-          <Portfolio3 />
-          <Project5 data={dataItem3} />
-        </>
+        <YearlyEvents data={dataEventsYearly} />
       )}
     </div>
   );

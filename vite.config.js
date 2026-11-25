@@ -5,9 +5,11 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   server: {
-    // Define rewrites here for development purposes
     port: 5173,
     open: true,
+    watch: {
+      ignored: ['**/dist/**', '**/.git/**']
+    },
     proxy: {
       // '/': {
       //   target: '/index.html',

@@ -365,17 +365,67 @@
         .content {
             .image{
                 img {
-                    transform: scale(1.1);
+                    transform: scale(1.05);
                 }
             }
         }
     }
-
 }
 
 .liveEventsSwiper {
-    .card-box .content .image img {
-        object-fit: contain;
+    padding: 40px 10px 50px !important;
+    perspective: 1200px;
+    overflow: visible !important;
+
+    .swiper-slide {
+        width: 380px !important;
+        max-width: 88vw;
+        transition: transform 0.4s ease, opacity 0.4s ease, filter 0.4s ease;
+        opacity: 0.55;
+        filter: blur(1px) brightness(0.75);
+
+        @include mobile {
+            width: 320px !important;
+        }
+
+        &.swiper-slide-active {
+            opacity: 1;
+            filter: blur(0px) brightness(1);
+            z-index: 10;
+
+            .card-box {
+                border-color: rgba(167, 139, 250, 0.45);
+                box-shadow: 0 15px 45px rgba(124, 58, 237, 0.3), 0 0 25px rgba(167, 139, 250, 0.2);
+            }
+        }
+    }
+
+    .card-box {
+        margin: 0 auto;
+        transition: border-color 0.4s ease, box-shadow 0.4s ease;
+
+        .content .image img {
+            object-fit: cover;
+        }
+    }
+
+    .swiper-pagination {
+        bottom: 10px !important;
+
+        .swiper-pagination-bullet {
+            background: rgba(255, 255, 255, 0.3);
+            opacity: 0.5;
+            transition: all 0.3s ease;
+            width: 8px;
+            height: 8px;
+
+            &-active {
+                background: linear-gradient(90deg, #7C3AED, #A78BFA);
+                width: 24px;
+                border-radius: 4px;
+                opacity: 1;
+            }
+        }
     }
 }
 
