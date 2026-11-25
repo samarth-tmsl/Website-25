@@ -1,0 +1,70 @@
+/* Cursor-tracking eye-catching edge glow & shadow reflection on cards and boxes */
+.nft-item,
+.project-box,
+.card-box,
+.team-box,
+.portfolio-box,
+.testimonials-box,
+.counter-box,
+.blog-box,
+.box-item,
+.speciality-box {
+  position: relative;
+  transition: box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1), transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: radial-gradient(
+      360px circle at var(--glow-x, -999px) var(--glow-y, -999px),
+      rgba(192, 132, 252, 0.34),
+      rgba(124, 58, 237, 0.16) 42%,
+      transparent 72%
+    );
+    filter: blur(14px);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: radial-gradient(
+      300px circle at var(--glow-x, -999px) var(--glow-y, -999px),
+      rgba(255, 255, 255, 0.95),
+      rgba(216, 180, 254, 0.85) 26%,
+      rgba(139, 92, 246, 0.55) 50%,
+      transparent 75%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 4;
+  }
+
+  &:hover {
+    box-shadow:
+      0 0 28px rgba(139, 92, 246, 0.38),
+      0 14px 38px -6px rgba(92, 39, 254, 0.45);
+
+    &::before,
+    &::after {
+      opacity: 1;
+    }
+  }
+}

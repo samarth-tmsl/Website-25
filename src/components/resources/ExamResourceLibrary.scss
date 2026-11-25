@@ -73,6 +73,11 @@
       box-shadow: 0 22px 48px rgba(0, 0, 0, 0.24);
     }
 
+    > :not(.exam-resource-library__emblem) {
+      position: relative;
+      z-index: 1;
+    }
+
     h2 {
       margin: 19px 0 9px;
       font-size: 23px;
@@ -86,6 +91,75 @@
       font-size: 13px;
       line-height: 1.65;
     }
+  }
+
+  &__emblem {
+    position: absolute;
+    right: 16px;
+    bottom: 10px;
+    width: 130px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    transform: translate3d(0, 56px, 0) scale(0.92);
+    transition:
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.35s ease;
+    will-change: transform, opacity;
+
+    svg,
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 8px 20px rgba(222, 199, 255, 0.22));
+    }
+  }
+
+  &__card--with-emblem:hover &__emblem,
+  &__card--with-emblem:focus-within &__emblem {
+    opacity: 0.34;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  &__card--cat &__emblem {
+    width: 155px;
+    right: 14px;
+    bottom: 18px;
+  }
+
+  &__cat-svg {
+    .cat-line-path {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      transition: stroke-dashoffset 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .cat-line-path--2 {
+      transition-delay: 0.08s;
+    }
+
+    .cat-line-path--3 {
+      transition-delay: 0.16s;
+    }
+
+    .cat-line-path--4 {
+      transition-delay: 0.22s;
+    }
+
+    .cat-line-path--5 {
+      transition-delay: 0.3s;
+    }
+  }
+
+  &__card--cat:hover &__emblem,
+  &__card--cat:focus-within &__emblem {
+    opacity: 0.55;
+  }
+
+  &__card--cat:hover &__cat-svg .cat-line-path,
+  &__card--cat:focus-within &__cat-svg .cat-line-path {
+    stroke-dashoffset: 0;
   }
 
   &__card-icon {

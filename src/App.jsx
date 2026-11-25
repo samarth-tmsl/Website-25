@@ -7,6 +7,7 @@ import routes from './pages';
 import Page404 from './pages/404';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
+import PointerTracker from './components/cursor/PointerTracker';
 import { Analytics } from '@vercel/analytics/react';
 // import { SpeedInsights } from '@vercel/speed-insights/react';
 
@@ -20,7 +21,7 @@ function App() {
 
     return (
         <>
-            
+            <PointerTracker />
             <Header />
               <ScrollUp />
               <Routes>
