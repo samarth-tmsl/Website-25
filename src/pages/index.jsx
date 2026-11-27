@@ -8,7 +8,6 @@ import Team from "./Team";
 import About from"./About";
 import Exam from"./Exam";
 import Aspirants from "./Aspirants";
-import Results from "./Results";
 import Achievers from "./Achievers";
 
 
@@ -24,7 +23,6 @@ const routes = [
   { path : '/Resources',component: <Exam />},
   { path : '/Aspirants',component: <Aspirants />},
   { path : '/study',component: <Exam />},
-  { path : '/results',component: <Results />},
   { path: '/achievers', component: <Achievers />},
   
 
