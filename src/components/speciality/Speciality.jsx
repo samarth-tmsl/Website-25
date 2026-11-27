@@ -9,8 +9,7 @@ function Speciality(props) {
     const [dataBlock] = useState(
         {
             subheading: 'Our Aim',
-            heading: 'Empowering the Youth',
-            desc: 'Building self confidence. Work in the direction of self growth and transformation. Organizing various kinds of events like extempore, Group discussion,mock interview,etc. Holistic development of an individual through :' ,
+            desc: "To build students' confidence, communication and leadership, and to guide them towards competitive exams like UPSC, WBCS, SSC, Banking, Railway, GATE and CAT, through events such as extempore, group discussions, mock interviews and quizzes.",
             
         }
     )
@@ -22,7 +21,6 @@ function Speciality(props) {
                         <div className="col-12">
                             <div className="block-text center">
                                 <h6 className="sub-heading"><span>{dataBlock.subheading}</span></h6>
-                                <h3 className="heading pd">{dataBlock.heading}</h3>
                                     <p className="">{dataBlock.desc}</p>
                             </div>
                         </div>
