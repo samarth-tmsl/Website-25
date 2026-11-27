@@ -62,12 +62,6 @@ const menus = [
         name: 'Team',
         links: '/team',
     },
-    {
-        id: 9,
-        name: 'Results',
-        links: '/results',
-        // isNew: 'true',
-    },
 
     {
         id: 6,

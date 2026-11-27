@@ -8,7 +8,7 @@ const dataTestimonials = [
     {
         id: 1,
         icon: icon1,
-        text: '“ Youth empowerment is a process, to encourage youth by all means: Personality development, Skill development, Grooming and Mentorship, Guidance in competitive exams like UPSC-CSE/UPSC, IES/GATE, Mental Health,etc. ”',
+        text: '“ Empowering Youth ”',
         avt: logo,
         // name: 'Jacob Jones',
         // position: 'Chief Product Officer'

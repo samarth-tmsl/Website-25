@@ -10,26 +10,26 @@ const dataBox = [
     {
         id: 1,
         img: img1,
-        title: 'Strategy',
-        desc: 'A strategy describes how the ends (goals) will be achieved by the means (resources).'
+        title: 'Learn',
+        desc: 'Weekly current affairs sessions, quizzes and exam awareness for UPSC, WBCS, SSC and other government exams.'
     },
     {
         id: 2,
         img: img2,
-        title: 'Design',
-        desc: 'Graphic design is the craft of planning and creating visual content to communicate ideas and messages.'
+        title: 'Speak',
+        desc: 'Debates, extempore, group discussions and mock interviews that turn hesitation into confidence.'
     },
     {
         id: 3,
         img: img3,
-        title: 'Grooming & Development',
-        desc: 'Grooming is the secret of real elegance. We believe in learning by action!'
+        title: 'Lead',
+        desc: 'Youth Parliament, expert interactions and team projects that build leadership and teamwork.'
     },
     {
         id: 4,
         img: img4,
-        title: 'Help & Supports',
-        desc: 'Support plays a huge role in any journey. "A mentor is someone who allows you to see the hope within yourself".'
+        title: 'Serve',
+        desc: 'Awareness drives on the environment, road safety, cyber safety and civic responsibility.'
     },
 
 ]

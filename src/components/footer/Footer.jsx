@@ -80,7 +80,7 @@ function Footer(props) {
                                         <a href="https://x.com/samarth_tmsl" target="blank"><i><FontAwesomeIcon icon={faXTwitter} /></i></a>
                                         <a href="https://www.instagram.com/samarth_tmsl/" target="blank"><i><FontAwesomeIcon icon={faInstagram} /></i></a>
                                         <a href="https://www.youtube.com/@samarthtmsl" target="blank"><i><FontAwesomeIcon icon={faYoutube} /></i></a>
-                                        <a href="https://discord.gg/Y7Bcqj4DMa" target="blank"><i><FontAwesomeIcon icon={faDiscord} /></i></a>
+                                        {/* <a href="https://discord.gg/Y7Bcqj4DMa" target="blank"><i><FontAwesomeIcon icon={faDiscord} /></i></a> */}
                                         <a href="https://m.facebook.com/SamarthTMSL?fref=nf&refid=52&__tn__=%7E-R" target="blank"><i><FontAwesomeIcon icon={faFacebookF} /></i></a>
                                         <a href="https://www.linkedin.com/company/samarthtmsl/" target="blank"><i><FontAwesomeIcon icon={faLinkedin} /></i></a>
                                     </div>

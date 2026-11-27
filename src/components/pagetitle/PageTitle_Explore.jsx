@@ -131,7 +131,7 @@ function PageTitle(props) {
                         </svg>
                       </a>
                     </li>
-                    <li>
+                    {/* <li>
                       <a href="https://discord.gg/Y7Bcqj4DMa" target='_blank'>
                         <svg
                           width="18"
@@ -146,7 +146,7 @@ function PageTitle(props) {
                           />
                         </svg>
                       </a>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </div>
